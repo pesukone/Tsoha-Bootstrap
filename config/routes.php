@@ -19,3 +19,7 @@
   $routes->get('/suunnitelmat/event/1', function() {
     HelloWorldController::event_show();
   });
+
+  $routes->get('/suunnitelmat/register', function() {
+    HelloWorldController::registered_new();
+  });

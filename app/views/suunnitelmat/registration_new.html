@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Uusi käyttäjä</h2>
+
+  <div class="form-group">
+    <label for="name">Nimi:</label>
+    <input type="text" class="form-control" id="name">
+  </div>
+  <div class="form-group">
+    <label for="password">Salasana:</label>
+    <input type="password" class="form-control" id="password">
+  </div>
+
+  <button type="button" class="btn btn-primary">Luo käyttäjä</button>
+{% endblock %}

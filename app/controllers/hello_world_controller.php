@@ -24,4 +24,8 @@
     public static function event_show() {
       View::make('suunnitelmat/event_show.html');
     }
+
+    public static function registered_new() {
+      View::make('suunnitelmat/registration_new.html');
+    }
   }
