@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Uusi merkintä</h1>
+
+  <!-- firefox ei tue näitä -->
+  <input type="date" />
+  <br>
+  <input type="time" />
+  <br>
+
+  <div class="form-group">
+    <textarea class="form-control" rows="5" id="merkinnan teksti"></textarea>
+  </div>
+  <br>
+  <button type="button" class="btn btn-primary">Luo merkintä</button>
+{% endblock %}
