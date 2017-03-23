@@ -1,1 +1,5 @@
 -- Lisää DROP TABLE lauseet tähän tiedostoon
+DROP TABLE IF EXISTS Event CASCADE;
+DROP TABLE IF EXISTS Membership CASCADE;
+DROP TABLE IF EXISTS Eventgroup CASCADE;
+DROP TABLE IF EXISTS Registered;
