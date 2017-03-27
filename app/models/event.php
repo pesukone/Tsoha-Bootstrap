@@ -8,14 +8,14 @@
       parent::__construct($attributes);
     }
 
-    public function events_of($owner){
+    public function all(){
       $query = DB::connection()->prepare('SELECT * FROM Event');
       $query->execute();
       $rows = $query->fetchAll();
       $events = array();
 
       foreach($rows as $row){
-        $events[] = new Game(array(
+        $events[] = new Event(array(
 	  'id' => $row['id'],
 	  'eventday' => $row['eventday'],
 	  'eventtime' => $row['eventtime'],
@@ -24,5 +24,7 @@
 	  'eventgroup_id' => $row['eventgroup_id']
 	));
       }
+
+      return $events;
     }
   }
