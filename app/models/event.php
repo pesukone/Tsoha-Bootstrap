@@ -8,7 +8,7 @@
       parent::__construct($attributes);
     }
 
-    public function all(){
+    public static function all(){
       $query = DB::connection()->prepare('SELECT * FROM Event');
       $query->execute();
       $rows = $query->fetchAll();

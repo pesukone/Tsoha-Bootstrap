@@ -8,7 +8,7 @@
       parent::__construct($attributes);
     }
 
-    public function all(){
+    public static function all(){
       $query = DB::connection()->prepare('SELECT * FROM Registered');
       $query->execute();
       $rows = $query->fetchAll();
@@ -24,7 +24,7 @@
       return $users;
     }
 
-    public function find($id){
+    public static function find($id){
       $query = DB::connection()->prepare('SELECT * FROM Registered WHERE id = :id LIMIT 1');
       $query->execute(array('id' => $id));
       $row = $query->fetch();

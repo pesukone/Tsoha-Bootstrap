@@ -1,5 +1,7 @@
 <?php
 
+  require 'app/models/registered.php';
+  require 'app/models/event.php';
   class HelloWorldController extends BaseController{
 
     public static function index() {
@@ -9,8 +11,13 @@
     }
 
     public static function sandbox() {
-      // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      $pekka = Registered::find(1);
+      $events = Event::all();
+      $users = Registered::all();
+
+      Knit::dump($pekka);
+      Knit::dump($events);
+      Knit::dump($users);
     }
 
     public static function calendar_show() {
