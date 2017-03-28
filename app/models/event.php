@@ -27,4 +27,20 @@
 
       return $events;
     }
+
+    public static function find($id){
+      $query = DB::connection()->prepare('SELECT * FROM Event WHERE id = :id LIMIT 1');
+      $query->execute(array(':id' => $id));
+      $row = $query->fetch();
+
+      if($row){
+	$event = new Event(array(
+	  'id' => $row['id'],
+	  'name' => $row['name']
+	));
+
+	return $event;
+      }
+
+      return null;
   }

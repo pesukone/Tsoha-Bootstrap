@@ -26,13 +26,13 @@
 
     public static function find($id){
       $query = DB::connection()->prepare('SELECT * FROM Registered WHERE id = :id LIMIT 1');
-      $query->execute(array('id' => $id));
+      $query->execute(array(':id' => $id));
       $row = $query->fetch();
 
       if($row){
         $user = new Registered(array(
 	  'id' => $row['id'],
-	  'name' => $row['id']
+	  'name' => $row['name']
 	));
 
 	return $user;
