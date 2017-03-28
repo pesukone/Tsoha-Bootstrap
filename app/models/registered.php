@@ -15,7 +15,7 @@
       $users = array();
 
       foreach($rows as $row){
-        $events[] = new Registered(array(
+        $users[] = new Registered(array(
 	  'id' => $row['id'],
 	  'name' => $row['name']
 	));
