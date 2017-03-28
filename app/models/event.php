@@ -36,11 +36,16 @@
       if($row){
 	$event = new Event(array(
 	  'id' => $row['id'],
-	  'name' => $row['name']
+	  'eventday' => $row['eventday'],
+	  'eventtime' => $row['eventtime'],
+	  'description' => $row['description'],
+	  'registered_id' => $row['registered_id'],
+	  'eventgroup_id' => $row['eventgroup_id']
 	));
 
 	return $event;
       }
 
       return null;
+    }
   }
