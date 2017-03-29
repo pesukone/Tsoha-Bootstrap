@@ -52,10 +52,11 @@
     public static function list_events($user_id, $date){
       $query = DB::connection()->prepare('SELECT * FROM Event WHERE registered_id = :user_id AND eventday = :date');
       $query->execute(array(':user_id' => $user_id, ':date' => $date));
-      $row = $query->fetchAll();
+      $rows = $query->fetchAll();
+      $events = array();
 
-      if($row){
-        $events[] = new User(array(
+      foreach($rows as $row){
+        $events[] = new Event(array(
 	  'id' => $row['id'],
 	  'eventday' => $row['eventday'],
 	  'eventtime' => $row['eventtime'],
