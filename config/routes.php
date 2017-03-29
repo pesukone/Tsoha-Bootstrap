@@ -4,6 +4,14 @@
     HelloWorldController::index();
   });
 
+  $routes->get('/event/:id', function($id){
+    EventController::show($id);
+  }
+
+  $routes->get('/user/:id', function($id){
+    UserController::show($id);
+  }
+
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });

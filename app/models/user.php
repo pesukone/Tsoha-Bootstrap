@@ -1,6 +1,6 @@
 <?php
 
-  class Registered extends BaseModel{
+  class User extends BaseModel{
 
     public $id, $name;
 
