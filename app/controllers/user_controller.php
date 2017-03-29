@@ -6,4 +6,8 @@
 
       View::make('user/index.html', array('users' => $users));
     }
+
+    public static function list_events($id, $date){
+      $user = User::find($id);
+      $events = Event::list_events($id, $date);
   }

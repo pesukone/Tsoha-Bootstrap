@@ -12,6 +12,10 @@
     UserController::show($id);
   }
 
+  $routes->get('/user/:id/:date', function($id, $date){
+    UserController::list_events($id, $date);
+  }
+
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });

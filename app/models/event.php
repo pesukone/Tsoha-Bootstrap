@@ -2,7 +2,7 @@
 
   class Event extends BaseModel{
 
-    public $id, $eventday, $eventtime, $description, $registered_id, $eventgroup_id;
+    public $id, $eventday, $eventtime, $description, $user, $group;
 
     public function __construct($attributes){
       parent::__construct($attributes);
@@ -20,8 +20,8 @@
 	  'eventday' => $row['eventday'],
 	  'eventtime' => $row['eventtime'],
 	  'description' => $row['description'],
-	  'registered_id' => $row['registered_id'],
-	  'eventgroup_id' => $row['eventgroup_id']
+	  'user' => User::find($row['registered_id']),
+	  'group' => Group::find($row['eventgroup_id'])
 	));
       }
 
@@ -39,11 +39,32 @@
 	  'eventday' => $row['eventday'],
 	  'eventtime' => $row['eventtime'],
 	  'description' => $row['description'],
-	  'registered_id' => $row['registered_id'],
-	  'eventgroup_id' => $row['eventgroup_id']
+	  'user' => User::find($row['registered_id']),
+	  'group' => Group::find($row['eventgroup_id'])
 	));
 
 	return $event;
+      }
+
+      return null;
+    }
+
+    public static function list_events($user_id, $date){
+      $query = DB::connection()->prepare('SELECT * FROM Event WHERE registered_id = :user_id AND eventday = :date');
+      $query->execute(array(':user_id' => $user_id, ':date' => $date));
+      $row = $query->fetchAll();
+
+      if($row){
+        $events[] = new User(array(
+	  'id' => $row['id'],
+	  'eventday' => $row['eventday'],
+	  'eventtime' => $row['eventtime'],
+	  'description' => $row['description'],
+	  'user' => User::find($row['registered_id']),
+	  'group' => Group::find($row['eventgroup_id'])
+	));
+
+	return $events;
       }
 
       return null;
