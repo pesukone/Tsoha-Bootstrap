@@ -9,7 +9,7 @@ class UserController extends BaseController{
 
   public static function list_events($id, $date){
     $user = User::find($id);
-    $events = Event::list_events($id, $date);
+    $events = User::list_events($user->id, $date);
 
     View::make('user/event_day.html', array('user' => $user, 'events' => $events, 'date' => $date));
   }

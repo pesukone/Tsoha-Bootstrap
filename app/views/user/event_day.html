@@ -17,7 +17,7 @@
     <tbody>
       {% for event in events %}
         <tr>
-          <td>{{event.time}}</td>
+          <td>{{event.eventtime}}</td>
           <td>{{event.description}}</td>
           <td><a class="btn btn-default btn-sm" href="{{base_path}}/event/{{event.id}}/edit">Muokkaa</a></td>
         </tr>
