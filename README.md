@@ -7,11 +7,13 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-PHP:llä ja PostgreSQL:llä toteutettu kalenterisovellus
+PHP:llä toteutettu kalenterisovellus, joka käyttää PostgreSQL:ää
+
+## Toiminnallisuutta
+
+* [Päivänäkymä](http://jvaalto.users.cs.helsinki.fi/kalenteri/user/1/2017-03-23)
 
 ## Näkymäluonnoksia
 
 * [Kalenterinäkymä](http://jvaalto.users.cs.helsinki.fi/kalenteri/suunnitelmat/calendar)
-* [Merkintänäkymä](http://jvaalto.users.cs.helsinki.fi/kalenteri/suunnitelmat/event/1)
-* [Uusi merkintä](http://jvaalto.users.cs.helsinki.fi/kalenteri/suunnitelmat/event/new)
 * [Rekisteröitymissivu](http://jvaalto.users.cs.helsinki.fi/kalenteri/suunnitelmat/register)
