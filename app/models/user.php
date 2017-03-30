@@ -41,9 +41,9 @@
       return null;
     }
 
-    public static function list_events($date){
+    public static function list_events($user_id, $date){
       $query = DB::connection()->prepare('SELECT * FROM Event WHERE registered_id = :user_id AND eventday = :date');
-      $query->execute(array(':user_id' => $id, ':date' => $date));
+      $query->execute(array(':user_id' => $user_id, ':date' => $date));
       $rows = $query->fetchAll();
       $events = array();
 
