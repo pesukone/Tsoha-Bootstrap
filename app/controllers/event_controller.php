@@ -28,10 +28,8 @@ class EventController extends BaseController{
       'group' => null       // korvataan ryhmänlisäämisvaihtoehdolla lomakkeessa
     ));
 
-    Kint::dump($params);
-
     $event->save();
 
-    Redirect::to('/', array('message' => 'Tapahtuma luotu'));
+    Redirect::to('/event/' . $event->id, array('message' => 'Merkintä luotu'));
   }
 }
