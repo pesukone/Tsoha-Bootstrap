@@ -48,4 +48,12 @@ class Event extends BaseModel{
 
     return null;
   }
+
+  public function save(){
+    $query = DB::connection()->prepare('INSERT INTO Event (eventday, eventtime, description, registered_id, eventgroup_id) VALUES (:day, :time, :description, :user_id, :group_id) RETURNING id');
+    $query->execute(array('day' => $this->eventday, 'time' => $this->eventtime, 'description' => $this->description, 'user_id' => $this->user->id, 'group_id' => $this->group->id));
+    $row = $query->fetch();
+
+    $this->id = $row['id'];
+  }
 }

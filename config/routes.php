@@ -4,9 +4,18 @@
     HelloWorldController::index();
   });
 
+  $routes->post('/event', function(){
+    EventController::store();
+  });
+
+  $routes->get('/event/new', function(){
+    EventController::create();
+  });
+
   $routes->get('/event/:id', function($id){
     EventController::show($id);
   });
+
 
   $routes->get('/user/:id', function($id){
     UserController::show($id);
