@@ -16,6 +16,7 @@
       $users = Registered::all();
       $user_find = Registered::find(1);
 
+      $groups = Group::all();
 
       Kint::dump($events);
       Kint::dump($event_find);
@@ -23,6 +24,8 @@
       
       Kint::dump($users);
       Kint::dump($user_find);
+
+      Kint::dump($groups);
     }
 
     public static function calendar_show() {
