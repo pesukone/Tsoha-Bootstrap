@@ -11,7 +11,7 @@
     public static function sandbox() {
       $events = Event::all();
       $event_find = Event::find(1);
-      $list_events = Event::list_events(1, '2017-03-23');
+      $list_events = User::list_events('2017-03-23');
 
       $users = Registered::all();
       $user_find = Registered::find(1);
