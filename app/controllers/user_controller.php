@@ -13,4 +13,8 @@ class UserController extends BaseController{
 
     View::make('user/event_day.html', array('user' => $user, 'events' => $events, 'date' => $date));
   }
+
+  public static function create(){
+    View::make('user/new.html');
+  }
 }
