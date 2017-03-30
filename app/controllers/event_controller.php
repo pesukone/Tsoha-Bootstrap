@@ -1,6 +1,6 @@
 <?php
 
-class EventsController extends BaseController{
+class EventController extends BaseController{
   public static function index(){
     $events = Event::all();
       
@@ -10,7 +10,11 @@ class EventsController extends BaseController{
   public static function show($id){
     $event = Event::find($id);
 
-    View::make('event/show.html', array('event' => $event);
+    View::make('event/show.html', array('event' => $event));
+  }
+
+  public static function create(){
+    View::make('event/new.html');
   }
 
   public static function store(){
@@ -23,6 +27,8 @@ class EventsController extends BaseController{
       'user' => User::find(1),      // korvataan current_user metodilla
       'group' => null       // korvataan ryhmänlisäämisvaihtoehdolla lomakkeessa
     ));
+
+    Kint::dump($params);
 
     $event->save();
 
