@@ -44,10 +44,10 @@ class BaseModel{
   }
 
   public function validate_datetime_format($string){
-    if(!strtotime($string)){
-      return false;
+    if(strtotime($string)){
+      return true;
     }
 
-    return true;
+    return false;
   }
 }
