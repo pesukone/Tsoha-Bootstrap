@@ -6,6 +6,7 @@ class Event extends BaseModel{
 
   public function __construct($attributes){
     parent::__construct($attributes);
+    $this->validators = array('validate_description');
   }
 
   public static function all(){
@@ -62,5 +63,18 @@ class Event extends BaseModel{
     $row = $query->fetch();
 
     $this->id = $row['id'];
+  }
+
+  public function validate_description(){
+    $errors = array();
+
+    if(!parent::validate_not_null($this->description)){
+      $errors[] = 'Kuvaus ei saa olla tyhjä!';
+    }
+    if(!parent::validate_string_length($this->description, 200)){
+      $errors[] = 'Kuvaus ei saa olla yli 200 merkkiä pitkä!';
+    }
+
+    return $errors;
   }
 }

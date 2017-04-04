@@ -19,11 +19,7 @@ class BaseModel{
     // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona
     $errors = array();
 
-    $errors = $this->validate_name();
-
-    return $errors;
-
-    foreach($this->$validators as $validator){
+    foreach($this->validators as $validator){
       // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
       $errors = array_merge($errors, $this->{$validator}());
     }
@@ -32,7 +28,7 @@ class BaseModel{
   }
 
   public function validate_string_length($string, $length){
-    if(strlen($string) < $length){
+    if(strlen($string) > $length){
       return false;
     }
 

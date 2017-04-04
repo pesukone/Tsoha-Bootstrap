@@ -27,7 +27,7 @@
 
       Kint::dump($groups);
 
-      Kint::dump($user_find->errors());
+      Kint::dump($event_find->errors());
     }
 
     public static function calendar_show() {
