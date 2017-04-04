@@ -39,4 +39,9 @@ class EventController extends BaseController{
       View::make('event/new.html', array('errors' => $errors, 'attributes' => $attributes));
     }
   }
+
+  public static function edit($id){
+    $event = Event::find($id);
+    View::make('event/edit.html', array('attributes' => $event));
+  }
 }
