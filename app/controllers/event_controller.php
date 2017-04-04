@@ -20,16 +20,23 @@ class EventController extends BaseController{
   public static function store(){
     $params = $_POST;
 
-    $event = new Event(array(
+    $attributes = array(
       'eventday' => $params['day'],
       'eventtime' => $params['time'],
       'description' => $params['description'],
       'user' => User::find(1),      // korvataan current_user metodilla
       'group' => null       // korvataan ryhmänlisäämisvaihtoehdolla lomakkeessa
-    ));
+    );
 
-    $event->save();
+    $event = new Event($attributes);
+    $errors = $event->errors();
 
-    Redirect::to('/event/' . $event->id, array('message' => 'Merkintä luotu'));
+    if(count($errors) == 0){
+      $event->save();
+
+      Redirect::to('/event/' . $event->id, array('message' => 'Merkintä luotu'));
+    }else{
+      View::make('event/new.html', array('errors' => $errors, 'attributes' => $attributes));
+    }
   }
 }
