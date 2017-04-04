@@ -19,8 +19,13 @@ class BaseModel{
     // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona
     $errors = array();
 
-    foreach($this->validators as $validator){
+    $errors = $this->validate_name();
+
+    return $errors;
+
+    foreach($this->$validators as $validator){
       // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
+      $errors = array_merge($errors, $this->{$validator}());
     }
 
     return $errors;
@@ -35,7 +40,7 @@ class BaseModel{
   }
 
   public function validate_not_null($string){
-    if($string == '' || $string == null){
+    if($string == '' || $string == null){
       return false;
     }
 

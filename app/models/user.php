@@ -17,8 +17,8 @@ class User extends BaseModel{
 
     foreach($rows as $row){
       $users[] = new Registered(array(
- 	'id' => $row['id'],
-	'name' => $row['name']
+       	'id' => $row['id'],
+      	'name' => $row['name']
       ));
     }
 
@@ -31,9 +31,9 @@ class User extends BaseModel{
     $row = $query->fetch();
 
     if($row){
-      $user = new Registered(array(
-	'id' => $row['id'],
-	'name' => $row['name']
+      $user = new User(array(
+      	'id' => $row['id'],
+      	'name' => $row['name']
       ));
 
       return $user;
@@ -64,10 +64,11 @@ class User extends BaseModel{
 
   public function validate_name(){
     $errors = array();
-    if(!validate_not_null($this->name)){
+
+    if(!parent::validate_not_null($this->name)){
       $errors[] = 'Nimi ei saa olla tyhjä!';
     }
-    if(!validate_string_length($this->name, 3)){
+    if(!parent::validate_string_length($this->name, 3)){
       $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
     }
 

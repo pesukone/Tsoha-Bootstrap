@@ -13,8 +13,8 @@
       $event_find = Event::find(1);
       $list_events = User::list_events(1, '2017-03-23');
 
-      $users = Registered::all();
-      $user_find = Registered::find(1);
+      $users = User::all();
+      $user_find = User::find(1);
 
       $groups = Group::all();
 
@@ -26,6 +26,8 @@
       Kint::dump($user_find);
 
       Kint::dump($groups);
+
+      Kint::dump($user_find->errors());
     }
 
     public static function calendar_show() {
