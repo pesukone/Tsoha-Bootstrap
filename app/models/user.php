@@ -42,6 +42,26 @@ class User extends BaseModel{
     return null;
   }
 
+  public static function list_events($user_id, $date){
+    $query = DB::connection()->prepare('SELECT * FROM Event WHERE registered_id = :user_id AND eventday = :date');
+    $query->execute(array(':user_id' => $user_id, ':date' => $date));
+    $rows = $query->fetchAll();
+    $events = array();
+
+    foreach($rows as $row){
+      $events[] = new Event(array(
+        'id' => $row['id'],
+        'eventday' => $row['eventday'],
+        'eventtime' => $row['eventtime'],
+        'description' => $row['description'],
+        'user' => User::find($row['registered_id']),
+        'group' => Group::find($row['eventgroup_id'])
+      ));
+    }
+
+    return $events;
+  }
+
   public function validate_name(){
     $errors = array();
     if(!validate_not_null($this->name)){

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="alert alert-success">
+    {{message}}
+  </div>
+
+  <h3>{{event.eventday}} {{event.eventtime}}</h3>
+
+  <p>
+    {{event.description}}
+  </p>
+
+  <button type="button" class="btn btn-primary">Muokkaa</button>
+  <button type="button" class="btn btn-danger">Poista</button>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>{{date}}</h2>
+
+  <p>
+    <a href="{{base_path}}/event/new" class="btn btn-primary">Uusi merkintä</a>
+  </p>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Kellonaika</th>
+        <th>Kuvaus</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+        <tr>
+          <td>{{event.eventtime}}</td>
+          <td>{{event.description}}</td>
+          <td><a class="btn btn-default btn-sm" href="{{base_path}}/event/{{event.id}}/edit">Muokkaa</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -11,11 +11,12 @@
     public static function sandbox() {
       $events = Event::all();
       $event_find = Event::find(1);
-      $list_events = Event::list_events(1, '2017-03-23');
+      $list_events = User::list_events(1, '2017-03-23');
 
       $users = Registered::all();
       $user_find = Registered::find(1);
 
+      $groups = Group::all();
 
       Kint::dump($events);
       Kint::dump($event_find);
@@ -23,6 +24,8 @@
       
       Kint::dump($users);
       Kint::dump($user_find);
+
+      Kint::dump($groups);
     }
 
     public static function calendar_show() {

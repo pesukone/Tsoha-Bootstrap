@@ -1,37 +1,46 @@
 <?php
 
-  $routes->get('/', function() {
-    HelloWorldController::index();
-  });
+$routes->get('/', function() {
+  UserController::create();
+});
 
-  $routes->get('/event/:id', function($id){
-    EventController::show($id);
-  });
+$routes->post('/event', function(){
+  EventController::store();
+});
 
-  $routes->get('/user/:id', function($id){
-    UserController::show($id);
-  });
+$routes->get('/event/new', function(){
+  EventController::create();
+});
 
-  $routes->get('/user/:id/:date', function($id, $date){
-    UserController::list_events($id, $date);
-  });
+$routes->get('/event/:id', function($id){
+  EventController::show($id);
+});
 
-  $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
-  });
 
-  $routes->get('/suunnitelmat/calendar', function() {
-    HelloWorldController::calendar_show();
-  });
+$routes->get('/user/:id', function($id){
+  UserController::show($id);
+});
 
-  $routes->get('/suunnitelmat/event/new', function() {
-    HelloWorldController::event_new();
-  });
+$routes->get('/user/:id/:date', function($id, $date){
+  UserController::list_events($id, $date);
+});
 
-  $routes->get('/suunnitelmat/event/1', function() {
-    HelloWorldController::event_show();
-  });
+$routes->get('/hiekkalaatikko', function() {
+  HelloWorldController::sandbox();
+});
 
-  $routes->get('/suunnitelmat/register', function() {
-    HelloWorldController::registered_new();
-  });
+$routes->get('/suunnitelmat/calendar', function() {
+  HelloWorldController::calendar_show();
+});
+
+$routes->get('/suunnitelmat/event/new', function() {
+  HelloWorldController::event_new();
+});
+
+$routes->get('/suunnitelmat/event/1', function() {
+  HelloWorldController::event_show();
+});
+
+$routes->get('/suunnitelmat/register', function() {
+  HelloWorldController::registered_new();
+});
