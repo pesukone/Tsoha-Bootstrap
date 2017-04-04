@@ -77,4 +77,24 @@ class Event extends BaseModel{
 
     return $errors;
   }
+
+  public function validate_date(){
+    $errors = array();
+
+    if(!parent::validate_datetime_format($this->eventday)){
+      $errors[] = 'Virheellinen päivämäärä!';
+    }
+
+    return $errors;
+  }
+
+  public function validate_time(){
+    $errors = array();
+
+    if(!parent::validate_datetime_format($this->eventtime)){
+      $errors[] = 'Virheellinen kellonaika!';
+    }
+
+    return $errors;
+  }
 }

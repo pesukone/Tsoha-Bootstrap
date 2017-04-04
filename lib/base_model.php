@@ -42,4 +42,12 @@ class BaseModel{
 
     return true;
   }
+
+  public function validate_datetime_format($string){
+    if(!strtotime($string)){
+      return false;
+    }
+
+    return true;
+  }
 }
