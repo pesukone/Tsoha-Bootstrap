@@ -6,7 +6,7 @@ class Event extends BaseModel{
 
   public function __construct($attributes){
     parent::__construct($attributes);
-    $this->validators = array('validate_description');
+    $this->validators = array('validate_description', 'validate_date', 'validate_time', 'validate_user');
   }
 
   public static function all(){
@@ -81,6 +81,9 @@ class Event extends BaseModel{
   public function validate_date(){
     $errors = array();
 
+    if(!parent::validate_not_null($this->eventday)){
+      $errors[] = 'Päivämäärä ei saa olla tyhjä!';
+    }
     if(!parent::validate_datetime_format($this->eventday)){
       $errors[] = 'Virheellinen päivämäärä!';
     }
@@ -91,8 +94,21 @@ class Event extends BaseModel{
   public function validate_time(){
     $errors = array();
 
+    if(!parent::validate_not_null($this->eventtime)){
+      $errors[] = 'Kellonaika ei saa olla tyhjä!';
+    }
     if(!parent::validate_datetime_format($this->eventtime)){
       $errors[] = 'Virheellinen kellonaika!';
+    }
+
+    return $errors;
+  }
+
+  public function validate_user(){
+    $errors = array();
+
+    if(!parent::validate_not_null($this->user)){
+      $errors[] = 'Virheellinen käyttäjä!';
     }
 
     return $errors;
