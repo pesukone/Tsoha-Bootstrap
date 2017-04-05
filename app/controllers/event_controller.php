@@ -24,7 +24,7 @@ class EventController extends BaseController{
       'eventday' => $params['day'],
       'eventtime' => $params['time'],
       'description' => $params['description'],
-      'user' => User::find(1),      // korvataan current_user metodilla
+      'user' => self::get_user_logged_in();
       'group' => null       // korvataan ryhmänlisäämisvaihtoehdolla lomakkeessa
     );
 
@@ -49,12 +49,30 @@ class EventController extends BaseController{
     $params = $_POST;
 
     $attributes = array(
-      'id' => $id,
+      'id' =>$id,
       'eventday' => $params['day'],
       'eventtime' => $params['time'],
-      'description' => $params['description']
-
+      'description' => $params['description'],
+      //'user' => self::get_user_logged_in();
+      //'group' => $params['group']
     );
 
+    $event = new Event($attributes);
+    $errors = $event->errors();
 
+    if(count($errors) > 0){
+      View::make('event/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+    }else{
+      $event->update();
+
+      Redirect::to('/event/' . $event->id, array('message' => 'Tapahtumaa muokattu onnistuneesti!'));
+    }
+  }
+
+  public static function destroy($id){
+    $event = new Event(array('id' => $id));
+    $event->destroy();
+
+    Redirect::to('/', array('message' => 'Tapahtuma tuhottu onnistuneesti!'));
+  }
 }

@@ -16,6 +16,18 @@ $routes->get('/event/:id', function($id){
   EventController::show($id);
 });
 
+$routes->get('/event/:id/edit', function($id){
+  EventController::edit($id);
+});
+
+$routes->post('/event/:id/edit', function($id){
+  EventController::update($id);
+});
+
+$routes->post('/event/:id/destroy', function($id){
+  EventController::destroy($id);
+});
+
 
 $routes->get('/user/:id', function($id){
   UserController::show($id);
@@ -23,6 +35,14 @@ $routes->get('/user/:id', function($id){
 
 $routes->get('/user/:id/:date', function($id, $date){
   UserController::list_events($id, $date);
+});
+
+$routes->get('/login', function(){
+  UserController::login();
+});
+
+$routes->post('/login', function(){
+  UserController::handle_login();
 });
 
 $routes->get('/hiekkalaatikko', function() {
