@@ -2,7 +2,7 @@
 
 class User extends BaseModel{
 
-  public $id, $name;
+  public $id, $name, $password_digest;
 
   public function __construct($attributes){
     parent::__construct($attributes);

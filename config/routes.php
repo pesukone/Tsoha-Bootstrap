@@ -37,6 +37,14 @@ $routes->get('/user/:id/:date', function($id, $date){
   UserController::list_events($id, $date);
 });
 
+$routes->get('/login', function(){
+  UserController::login();
+});
+
+$routes->post('/login', function(){
+  UserController::handle_login();
+});
+
 $routes->get('/hiekkalaatikko', function() {
   HelloWorldController::sandbox();
 });
