@@ -16,6 +16,18 @@ $routes->get('/event/:id', function($id){
   EventController::show($id);
 });
 
+$routes->get('/event/:id/edit', function($id){
+  EventController::edit($id);
+});
+
+$routes->post('/event/:id/edit', function($id){
+  EventController::update($id);
+});
+
+$routes->post('/event/:id/destroy', function($id){
+  EventController::destroy($id);
+});
+
 
 $routes->get('/user/:id', function($id){
   UserController::show($id);

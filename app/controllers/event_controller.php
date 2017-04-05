@@ -53,8 +53,8 @@ class EventController extends BaseController{
       'eventday' => $params['day'],
       'eventtime' => $params['time'],
       'description' => $params['description'],
-      'user' => $params['user'],
-      'group' => $params['group']
+      //'user' => 
+      //'group' => $params['group']
     );
 
     $event = new Event($attributes);
@@ -73,6 +73,6 @@ class EventController extends BaseController{
     $event = new Event(array('id' => $id));
     $event->destroy();
 
-    Redirect::to('/event', array('message' => 'Tapahtuma tuhottu onnistuneesti!'));
+    Redirect::to('/', array('message' => 'Tapahtuma tuhottu onnistuneesti!'));
   }
 }

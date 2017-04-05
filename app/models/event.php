@@ -6,7 +6,7 @@ class Event extends BaseModel{
 
   public function __construct($attributes){
     parent::__construct($attributes);
-    $this->validators = array('validate_description', 'validate_date', 'validate_time', 'validate_user');
+    $this->validators = array('validate_description', 'validate_date', 'validate_time');
   }
 
   public static function all(){
@@ -63,6 +63,24 @@ class Event extends BaseModel{
     $row = $query->fetch();
 
     $this->id = $row['id'];
+  }
+
+  public function update(){
+    $query = DB::connection()->prepare('UPDATE Event SET eventday = :day, eventtime = :time, description = :description WHERE id = :id');
+    $query->execute(array(
+      'day' => $this->eventday,
+      'time' => $this->eventtime,
+      'description' => $this->description,
+      //'group' => is_null($this->group) ? null : $this->group->id
+      'id' => $this->id
+    ));
+  }
+
+  public function destroy(){
+    $query = DB::connection()->prepare('DELETE FROM Event WHERE id = :id');
+    $query->execute(array(
+      'id' => $this->id
+    ));
   }
 
   public function validate_description(){

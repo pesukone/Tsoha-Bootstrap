@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="alert alert-success">
-    {{message}}
-  </div>
+  {% if message %}
+    <div class="alert alert-success">
+      {{message}}
+    </div>
+  {% endif %}
 
   <h3>{{event.eventday}} {{event.eventtime}}</h3>
 
@@ -10,6 +12,8 @@
     {{event.description}}
   </p>
 
-  <button type="button" class="btn btn-primary">Muokkaa</button>
-  <button type="button" class="btn btn-danger">Poista</button>
+  <a href="{{base_path}}/event/{{event.id}}/edit" class="btn btn-primary" role="button">Muokkaa</a>
+  <form method="post" action="{{base_path}}/event/{{event.id}}/destroy" style="display: inline-block;">
+    <button type="submit" class="btn btn-danger">Poista</button>
+  </form>
 {% endblock %}
