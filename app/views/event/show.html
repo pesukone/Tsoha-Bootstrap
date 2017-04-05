@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
 {% block content %}
   {% if message %}
     <div class="alert alert-success">
@@ -13,7 +14,5 @@
   </p>
 
   <a href="{{base_path}}/event/{{event.id}}/edit" class="btn btn-primary" role="button">Muokkaa</a>
-  <form method="post" action="{{base_path}}/event/{{event.id}}/destroy" style="display: inline-block;">
-    <button type="submit" class="btn btn-danger">Poista</button>
-  </form>
+  {{forms.destroy_button("#{base_path}/event/#{{event:id}}/destroy")}}
 {% endblock %}
