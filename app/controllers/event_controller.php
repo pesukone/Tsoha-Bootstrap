@@ -44,4 +44,17 @@ class EventController extends BaseController{
     $event = Event::find($id);
     View::make('event/edit.html', array('attributes' => $event));
   }
+
+  public static function update($id){
+    $params = $_POST;
+
+    $attributes = array(
+      'id' => $id,
+      'eventday' => $params['day'],
+      'eventtime' => $params['time'],
+      'description' => $params['description']
+
+    );
+
+
 }
