@@ -7,6 +7,13 @@ class User extends BaseModel{
   public function __construct($attributes){
     parent::__construct($attributes);
     $this->validators = array('validate_name');
+
+    if(array_key_exists('password_digest', $attributes)){
+      $this->password_digest = $attributes['password_digest'];
+    }else{
+      // ei näin!
+      $this->password_digest = crypt($attributes['password']);
+    }
   }
 
   public static function all(){
@@ -82,15 +89,28 @@ class User extends BaseModel{
     return $events;
   }
 
-  public function authenticate($username, $password){
+  public function save(){
+    $query = DB::connection()->prepare('INSERT INTO Registered (name, password_digest) VALUES (:name, :digest) RETURNING id');
+    $query->execute(array(
+      'name' => $this->name,
+      'digest' => $this->password_digest
+    ));
+
+    $row = $query->fetch();
+
+    $this->id = $row['id'];
+  }
+
+  public function authenticate($name, $password){
     $user = User::find_by_name($name);
 
     if($user == null){
       return null;
     }
 
-    if(password_verify($password, $user->password_digest)){
-      return user;
+    // ei ei ei!
+    if(crypt($password, $user->password_digest) == $user->password_digest){
+      return $user;
     }else{
       return null;
     }
@@ -102,7 +122,7 @@ class User extends BaseModel{
     if(!parent::validate_not_null($this->name)){
       $errors[] = 'Nimi ei saa olla tyhjä!';
     }
-    if(!parent::validate_string_length($this->name, 3)){
+    if(!parent::validate_string_min_length($this->name, 3)){
       $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
     }
 

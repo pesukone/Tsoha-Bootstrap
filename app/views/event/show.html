@@ -14,5 +14,5 @@
   </p>
 
   <a href="{{base_path}}/event/{{event.id}}/edit" class="btn btn-primary" role="button">Muokkaa</a>
-  {{forms.destroy_button("#{base_path}/event/#{{event:id}}/destroy")}}
+  {{forms.destroy_button("#{base_path}/event/#{event.id}/destroy")}}
 {% endblock %}

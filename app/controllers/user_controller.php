@@ -14,10 +14,10 @@ class UserController extends BaseController{
   public static function handle_login(){
     $params = $_POST;
 
-    $user = User::authenticate($params['username'], $params['password']);
+    $user = User::authenticate($params['name'], $params['password']);
 
     if(!$user){
-      View::make('user/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
+      View::make('user/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'name' => $params['name']));
     }else{
       $_SESSION['user'] = $user->id;
 
@@ -54,7 +54,7 @@ class UserController extends BaseController{
     $errors = $user->errors();
 
     if(count($errors) == 0){
-      $event->save();
+      $user->save();
 
       Redirect::to('/user/' . $user->id, array('message' => 'Käyttäjätunnus luotu'));
     }else{

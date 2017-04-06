@@ -89,7 +89,7 @@ class Event extends BaseModel{
     if(!parent::validate_not_null($this->description)){
       $errors[] = 'Kuvaus ei saa olla tyhjä!';
     }
-    if(!parent::validate_string_length($this->description, 200)){
+    if(!parent::validate_string_max_length($this->description, 200)){
       $errors[] = 'Kuvaus ei saa olla yli 200 merkkiä pitkä!';
     }
 

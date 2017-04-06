@@ -24,7 +24,7 @@ class EventController extends BaseController{
       'eventday' => $params['day'],
       'eventtime' => $params['time'],
       'description' => $params['description'],
-      'user' => self::get_user_logged_in();
+      'user' => self::get_user_logged_in(),
       'group' => null       // korvataan ryhmänlisäämisvaihtoehdolla lomakkeessa
     );
 

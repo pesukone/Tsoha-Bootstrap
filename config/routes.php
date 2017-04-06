@@ -32,7 +32,7 @@ $routes->get('/user/new', function(){
   UserController::create();
 });
 
-$routes->post('/user/new', function(){
+$routes->post('/user', function(){
   UserController::store();
 });
 

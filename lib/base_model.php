@@ -24,12 +24,20 @@ class BaseModel{
     return $errors;
   }
 
-  public function validate_string_length($string, $length){
+  public function validate_string_max_length($string, $length){
     if(strlen($string) > $length){
       return false;
+    }else{
+      return true;
     }
+  }
 
-    return true;
+  public function validate_string_min_length($string, $length){
+    if(strlen($string) < $length){
+      return false;
+    }else{
+      return true;
+    }
   }
 
   public function validate_not_null($string){
