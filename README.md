@@ -20,4 +20,5 @@ PHP:llä toteutettu kalenterisovellus, joka käyttää PostgreSQL:ää
 ## Testitunnukset
 
 Käyttäjä: testi
+
 Salasana: testi
