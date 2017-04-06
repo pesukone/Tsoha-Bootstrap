@@ -16,4 +16,8 @@ PHP:llä toteutettu kalenterisovellus, joka käyttää PostgreSQL:ää
 ## Näkymäluonnoksia
 
 * [Kalenterinäkymä](http://jvaalto.users.cs.helsinki.fi/kalenteri/suunnitelmat/calendar)
-* [Rekisteröitymissivu](http://jvaalto.users.cs.helsinki.fi/kalenteri/suunnitelmat/register)
+
+## Testitunnukset
+
+Käyttäjä: testi
+Salasana: testi
