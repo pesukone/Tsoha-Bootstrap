@@ -15,6 +15,7 @@
 
       $users = User::all();
       $user_find = User::find(1);
+      $user_find_by_name = User::find_by_name("Pekka");
 
       $groups = Group::all();
 

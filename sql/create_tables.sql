@@ -2,7 +2,8 @@
 
 CREATE TABLE Registered(
   id SERIAL PRIMARY KEY,
-  name varchar(50) NOT NULL
+  name varchar(50) NOT NULL,
+  password_digest varchar(255) NOT NULL
 );
 
 CREATE TABLE Eventgroup(
@@ -22,6 +23,6 @@ CREATE TABLE Event(
   eventday DATE NOT NULL,
   eventtime TIME NOT NULL,
   description varchar(200) NOT NULL,
-  registered_id INTEGER REFERENCES Registered(id),
+  registered_id INTEGER REFERENCES Registered(id) NOT NULL,
   eventgroup_id INTEGER REFERENCES Eventgroup(id)
 );

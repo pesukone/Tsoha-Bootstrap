@@ -1,7 +1,7 @@
 <?php
 
 $routes->get('/', function() {
-  UserController::create();
+  UserController::login();
 });
 
 $routes->post('/event', function(){
@@ -28,13 +28,12 @@ $routes->post('/event/:id/destroy', function($id){
   EventController::destroy($id);
 });
 
-
-$routes->get('/user/:id', function($id){
-  UserController::show($id);
+$routes->get('/user/new', function(){
+  UserController::create();
 });
 
-$routes->get('/user/:id/:date', function($id, $date){
-  UserController::list_events($id, $date);
+$routes->post('/user/new', function(){
+  UserController::store();
 });
 
 $routes->get('/login', function(){
@@ -43,6 +42,14 @@ $routes->get('/login', function(){
 
 $routes->post('/login', function(){
   UserController::handle_login();
+});
+
+$routes->get('/user/:id', function($id){
+  UserController::show($id);
+});
+
+$routes->get('/user/:id/:date', function($id, $date){
+  UserController::list_events($id, $date);
 });
 
 $routes->get('/hiekkalaatikko', function() {

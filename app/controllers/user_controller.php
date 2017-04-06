@@ -21,8 +21,15 @@ class UserController extends BaseController{
     }else{
       $_SESSION['user'] = $user->id;
 
-      Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->name . '!'));
+      Redirect::to('/user/'. $user->id, array('message' => 'Tervetuloa takaisin ' . $user->name . '!'));
     }
+  }
+
+  public static function show($id){
+    $user = User::find($id);
+
+    View::make('user/show.html', array('user' => $user));
+  }
 
   public static function list_events($id, $date){
     $user = User::find($id);
@@ -33,5 +40,25 @@ class UserController extends BaseController{
 
   public static function create(){
     View::make('user/new.html');
+  }
+
+  public static function store(){
+    $params = $_POST;
+
+    $attributes = array(
+      'name' => $params['name'],
+      'password' => $params['password']
+    );
+
+    $user = new User($attributes);
+    $errors = $user->errors();
+
+    if(count($errors) == 0){
+      $event->save();
+
+      Redirect::to('/user/' . $user->id, array('message' => 'Käyttäjätunnus luotu'));
+    }else{
+      View::make('user/new.html', array('errors' => $errors, 'attributes' => $attributes));
+    }
   }
 }

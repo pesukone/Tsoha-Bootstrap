@@ -18,7 +18,8 @@ class User extends BaseModel{
     foreach($rows as $row){
       $users[] = new Registered(array(
        	'id' => $row['id'],
-      	'name' => $row['name']
+      	'name' => $row['name'],
+        'password_digest' => $row['name']
       ));
     }
 
@@ -33,7 +34,26 @@ class User extends BaseModel{
     if($row){
       $user = new User(array(
       	'id' => $row['id'],
-      	'name' => $row['name']
+      	'name' => $row['name'],
+        'password_digest' => $row['password_digest']
+      ));
+
+      return $user;
+    }
+
+    return null;
+  }
+
+  public static function find_by_name($name){
+    $query = DB::connection()->prepare('SELECT * FROM Registered WHERE name = :name');
+    $query->execute(array(':name' => $name));
+    $row = $query->fetch();
+
+    if($row){
+      $user = new User(array(
+        'id' => $row['id'],
+        'name' => $row['name'],
+        'password_digest' => $row['password_digest']
       ));
 
       return $user;
@@ -60,6 +80,20 @@ class User extends BaseModel{
     }
 
     return $events;
+  }
+
+  public function authenticate($username, $password){
+    $user = User::find_by_name($name);
+
+    if($user == null){
+      return null;
+    }
+
+    if(password_verify($password, $user->password_digest)){
+      return user;
+    }else{
+      return null;
+    }
   }
 
   public function validate_name(){
