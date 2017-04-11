@@ -60,6 +60,19 @@ $routes->get('/user/:id/:date', 'check_logged_in', function($id, $date){
   UserController::list_events($id, $date);
 });
 
+$routes->get('/group/new', 'check_logged_in', function(){
+  GroupController::create();
+});
+
+$routes->get('/group/:id', 'check_logged_in', function($id){
+  GroupController::show($id);
+});
+
+$routes->post('/group', 'check_logged_in', function(){
+  GroupController::store();
+});
+
+
 $routes->get('/hiekkalaatikko', function() {
   HelloWorldController::sandbox();
 });

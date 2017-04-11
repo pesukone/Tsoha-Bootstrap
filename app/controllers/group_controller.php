@@ -30,4 +30,10 @@ class GroupController extends BaseController{
       View::make('group/new.html', array('errors' => $errors, 'attributes' => $attributes));
     }
   }
+
+  public static function show($id){
+    $group = Group::find($id);
+
+    View::make('group/show.html', array('group' => $group));
+  }
 }

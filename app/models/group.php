@@ -2,10 +2,11 @@
 
   class Group extends BaseModel{
 
-    public $name, $description;
+    public $id, $name, $description;
 
     public function __construct($attributes){
       parent::__construct($attributes);
+      $this->validators = array();
     }
 
     public static function all(){
@@ -42,5 +43,16 @@
       return null;
     }
 
+    public function save(){
+      $query = DB::connection()->prepare('INSERT INTO Eventgroup (name, description) VALUES (:name, :description) RETURNING id');
+      $query->execute(array(
+        'name' => $this->name,
+        'description' => $this->description
+      ));
+
+      $row = $query->fetch();
+
+      $this->id = $row['id'];
+    }
 
   }
