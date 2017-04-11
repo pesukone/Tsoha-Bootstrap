@@ -25,6 +25,11 @@ class UserController extends BaseController{
     }
   }
 
+  public static function logout(){
+    $_SESSION['user'] = null;
+    Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
+  }
+
   public static function show($id){
     $user = User::find($id);
 

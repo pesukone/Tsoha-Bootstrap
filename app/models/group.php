@@ -16,10 +16,10 @@
 
       foreach($rows as $row){
         $groups[] = new Group(array(
-	  'id' => $row['id'],
-	  'name' => $row['name'],
-	  'description' => $row['description']
-	));
+	        'id' => $row['id'],
+	        'name' => $row['name'],
+	        'description' => $row['description']
+	      ));
       }
 
       return $groups;
@@ -32,13 +32,15 @@
 
       if($row){
         $group = new Group(array(
-	  'name' => $row['name'],
-	  'description' => $row['description']
-	));
+	        'name' => $row['name'],
+	        'description' => $row['description']
+	      ));
 
-	return $group;
+	      return $group;
       }
 
       return null;
     }
+
+
   }

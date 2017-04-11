@@ -1,30 +1,34 @@
 <?php
 
+function check_logged_in(){
+  BaseController::check_logged_in();
+}
+
 $routes->get('/', function() {
   UserController::login();
 });
 
-$routes->post('/event', function(){
+$routes->post('/event', 'check_logged_in', function(){
   EventController::store();
 });
 
-$routes->get('/event/new', function(){
+$routes->get('/event/new', 'check_logged_in', function(){
   EventController::create();
 });
 
-$routes->get('/event/:id', function($id){
+$routes->get('/event/:id', 'check_logged_in', function($id){
   EventController::show($id);
 });
 
-$routes->get('/event/:id/edit', function($id){
+$routes->get('/event/:id/edit', 'check_logged_in', function($id){
   EventController::edit($id);
 });
 
-$routes->post('/event/:id/edit', function($id){
+$routes->post('/event/:id/edit', 'check_logged_in', function($id){
   EventController::update($id);
 });
 
-$routes->post('/event/:id/destroy', function($id){
+$routes->post('/event/:id/destroy', 'check_logged_in', function($id){
   EventController::destroy($id);
 });
 
@@ -44,11 +48,15 @@ $routes->post('/login', function(){
   UserController::handle_login();
 });
 
-$routes->get('/user/:id', function($id){
+$routes->post('/logout', function(){
+  UserController::logout();
+});
+
+$routes->get('/user/:id', 'check_logged_in', function($id){
   UserController::show($id);
 });
 
-$routes->get('/user/:id/:date', function($id, $date){
+$routes->get('/user/:id/:date', 'check_logged_in', function($id, $date){
   UserController::list_events($id, $date);
 });
 
