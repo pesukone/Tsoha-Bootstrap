@@ -33,15 +33,20 @@
             <span class="icon-bar"></span>
           </button>
           <!-- Sovelluksen nimi -->
-          <a class="navbar-brand" href="{{base_path}}">Kalenteri</a>
+          {% if user_logged_in %}
+            <a class="navbar-brand" href="{{base_path}}/user/{{user_logged_in.id}}">Kalenteri</a>
+          {% else %}
+            <a class="navbar-brand" href="{{base_path}}">Kalenteri</a>
+          {% endif %}
         </div>
 
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
-            <li><a href="{{base_path}}/event/new">Uusi merkintä</a></li>
-            <li><a href="{{base_path}}/user/new">Luo käyttäjä</a></li>
-            <li><a href="{{base_path}}/group/new">Luo ryhmä</a></li>
+            {% if user_logged_in %}
+              <li><a href="{{base_path}}/event/new">Uusi merkintä</a></li>
+              <li><a href="{{base_path}}/group/new">Luo ryhmä</a></li>
+            {% endif %}
           </ul>
 
           {% if user_logged_in %}
@@ -50,7 +55,7 @@
             </form>
           {% else %}
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
+              <li><a href="{{base_path}}/user/new">Luo käyttäjä</a></li>
             </ul>
           {% endif %}
         </div>
