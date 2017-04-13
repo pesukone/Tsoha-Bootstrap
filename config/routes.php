@@ -57,7 +57,7 @@ $routes->get('/user/:id', 'check_logged_in', function($id){
 });
 
 $routes->get('/user/:id/:date', 'check_logged_in', function($id, $date){
-  UserController::list_events($id, $date);
+  UserController::events_for_day($id, $date);
 });
 
 $routes->post('/group', 'check_logged_in', function(){

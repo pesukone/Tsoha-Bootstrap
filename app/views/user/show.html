@@ -1,4 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-  Tänne tulee käyttäjän kalenterinäkymä sitten joskus™
+  <h3>{{monthtext}}</h3>
+  <table class="table table-bordered">
+   <!-- <thead>
+      <tr>
+        <th>ma</th>
+        <th>ti</th>
+        <th>ke</th>
+        <th>to</th>
+        <th>pe</th>
+        <th>la</th>
+        <th>su</th>
+      </tr>
+    </thead> -->
+    <tbody>
+      <tr>
+        {% for j in range(1,days) %}
+          {% if user.events_for_day(j ~ "." ~ month ~ "." ~ year) != null %}
+            <td><a href="{{base_path}}/user/{{user.id}}/2017-04-{{ j }}">{{ j }}</a></td>
+          {% else %}
+            <td>{{ j }}</td>
+          {% endif %}
+
+          {% if j % 7 == 0 %}
+            </tr><tr>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
 {% endblock %}

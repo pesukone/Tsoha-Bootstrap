@@ -33,12 +33,14 @@ class UserController extends BaseController{
   public static function show($id){
     $user = User::find($id);
 
-    View::make('user/show.html', array('user' => $user));
+    setlocale(LC_TIME, 'fi_FI');
+
+    View::make('user/show.html', array('user' => $user, 'monthtext' => strftime('%B'), 'days' => date('t'), 'year' => date('Y'), 'month' => date('m')));
   }
 
-  public static function list_events($id, $date){
+  public static function events_for_day($id, $date){
     $user = User::find($id);
-    $events = User::list_events($user->id, $date);
+    $events = $user->events_for_day($date);
 
     View::make('user/event_day.html', array('user' => $user, 'events' => $events, 'date' => $date));
   }

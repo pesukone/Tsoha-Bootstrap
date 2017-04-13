@@ -69,9 +69,9 @@ class User extends BaseModel{
     return null;
   }
 
-  public static function list_events($user_id, $date){
+  public function events_for_day($date){
     $query = DB::connection()->prepare('SELECT * FROM Event WHERE registered_id = :user_id AND eventday = :date');
-    $query->execute(array(':user_id' => $user_id, ':date' => $date));
+    $query->execute(array(':user_id' => $this->id, ':date' => $date));
     $rows = $query->fetchAll();
     $events = array();
 
