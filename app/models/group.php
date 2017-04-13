@@ -2,10 +2,11 @@
 
   class Group extends BaseModel{
 
-    public $id, $name, $description;
+    public $id, $name, $description, $members;
 
     public function __construct($attributes){
       parent::__construct($attributes);
+      $this->members = array();
       $this->validators = array();
     }
 
@@ -33,6 +34,7 @@
 
       if($row){
         $group = new Group(array(
+          'id' => $row['id'],
 	        'name' => $row['name'],
 	        'description' => $row['description']
 	      ));
@@ -41,6 +43,14 @@
       }
 
       return null;
+    }
+
+    public function add_member($user){
+      $query = DB::connection()->prepare('INSERT INTO Membership (registered_id, eventgroup_id) VALUES (:user_id, :group_id)');
+      $query->execute(array(
+        'user_id' => $user->id,
+        'group_id' => $this->id
+      ));
     }
 
     public function save(){
@@ -55,4 +65,10 @@
       $this->id = $row['id'];
     }
 
+    public function destroy(){
+      $query = DB::connection()->prepare('DELETE FROM Eventgroup WHERE id = :id');
+      $query->execute(array(
+        'id' => $this->id
+      ));
+    }
   }

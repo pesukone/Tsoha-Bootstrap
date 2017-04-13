@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
+{% block content %}
+  {% if message %}
+    <div class="alert alert-success">
+      {{message}}
+    </div>
+  {% endif %}
+
+  <h3>{{group.name}}</h3>
+
+  <p>
+    {{group.description}}
+  </p>
+
+  <a href="{{base_path}}/group/{{group.id}}/edit" class="btn btn-primary" role="button">Muokkaa</a>
+  {{forms.destroy_button("#{base_path}/group/#{group.id}/destroy")}}
+{% endblock %}

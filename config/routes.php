@@ -60,6 +60,10 @@ $routes->get('/user/:id/:date', 'check_logged_in', function($id, $date){
   UserController::list_events($id, $date);
 });
 
+$routes->post('/group', 'check_logged_in', function(){
+  GroupController::store();
+});
+
 $routes->get('/group/new', 'check_logged_in', function(){
   GroupController::create();
 });
@@ -68,10 +72,9 @@ $routes->get('/group/:id', 'check_logged_in', function($id){
   GroupController::show($id);
 });
 
-$routes->post('/group', 'check_logged_in', function(){
-  GroupController::store();
+$routes->post('/group/:id/destroy', 'check_logged_in', function($id){
+  GroupController::destroy($id);
 });
-
 
 $routes->get('/hiekkalaatikko', function() {
   HelloWorldController::sandbox();
@@ -79,16 +82,4 @@ $routes->get('/hiekkalaatikko', function() {
 
 $routes->get('/suunnitelmat/calendar', function() {
   HelloWorldController::calendar_show();
-});
-
-$routes->get('/suunnitelmat/event/new', function() {
-  HelloWorldController::event_new();
-});
-
-$routes->get('/suunnitelmat/event/1', function() {
-  HelloWorldController::event_show();
-});
-
-$routes->get('/suunnitelmat/register', function() {
-  HelloWorldController::registered_new();
 });
