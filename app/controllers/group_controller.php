@@ -13,7 +13,7 @@
 
     public static function store(){
       $params = $_POST;
-      $user = get_user_logged_in();
+      $user = self::get_user_logged_in();
 
       $attributes = array(
         'name' => $params['name'],
@@ -25,7 +25,7 @@
 
       if(count($errors) == 0){
         $group->save();
-        $group->add_user($user);
+        $group->add_member($user);
 
         Redirect::to('/group/' . $group->id, array('message' => 'Ryhmä luotu'));
       }else{

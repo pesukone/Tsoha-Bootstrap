@@ -39,6 +39,8 @@
 	        'description' => $row['description']
 	      ));
 
+        $group->members = $group->get_members();
+
 	      return $group;
       }
 
@@ -51,6 +53,28 @@
         'user_id' => $user->id,
         'group_id' => $this->id
       ));
+
+      $this->members[] = $user;
+    }
+
+    public function get_members(){
+      $query = DB::connection()->prepare('SELECT registered.id, registered.name, registered.password_digest FROM Eventgroup INNER JOIN Membership on eventgroup.id = membership.eventgroup_id INNER JOIN Registered on registered_id = registered.id WHERE eventgroup.id = :id');
+      $query->execute(array(
+        'id' => $this->id
+      ));
+
+      $rows = $query->fetchAll();
+      $members = array();
+
+      foreach($rows as $row){
+        $members[] = new User(array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'password_digest' => $row['password_digest']
+        ));
+      }
+
+      return $members;
     }
 
     public function save(){
