@@ -102,7 +102,7 @@ class Event extends BaseModel{
     if(!parent::validate_not_null($this->eventday)){
       $errors[] = 'Päivämäärä ei saa olla tyhjä!';
     }
-    if(!parent::validate_datetime_format($this->eventday)){
+    if(!parent::validate_date_format($this->eventday)){
       $errors[] = 'Virheellinen päivämäärä!';
     }
 
@@ -115,7 +115,7 @@ class Event extends BaseModel{
     if(!parent::validate_not_null($this->eventtime)){
       $errors[] = 'Kellonaika ei saa olla tyhjä!';
     }
-    if(!parent::validate_datetime_format($this->eventtime)){
+    if(!parent::validate_time_format($this->eventtime)){
       $errors[] = 'Virheellinen kellonaika!';
     }
 

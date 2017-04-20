@@ -7,7 +7,7 @@
     public function __construct($attributes){
       parent::__construct($attributes);
       $this->members = array();
-      $this->validators = array();
+      $this->validators = array('validate_name');
     }
 
     public static function all(){
@@ -94,5 +94,33 @@
       $query->execute(array(
         'id' => $this->id
       ));
+    }
+
+    public function validate_name(){
+      $errors = array();
+
+      if(!parent::validate_not_null($this->name)){
+        $errors[] = 'Nimi ei saa olla tyhjä!';
+      }
+
+      if(!parent::validate_string_min_length($this->name, 3)){
+        $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
+      }
+
+      return $errors;
+    }
+
+    public function validate_description(){
+      $errors = array();
+
+      if(!parent::validate_not_null($this->description)){
+        $errors[] = 'Kuvaus ei saa olla tyhjä!';
+      }
+
+      if(!parent::validate_string_max_length($this->description, 200)){
+        $errors[] = 'Kuvaus ei saa olla yli 200 merkkiä pitkä!';
+      }
+
+      return $errors;
     }
   }

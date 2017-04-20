@@ -10,12 +10,12 @@
 
     public static function sandbox() {
       $events = Event::all();
-      $event_find = Event::find(1);
-      $list_events = User::list_events(1, '2017-03-23');
+      $event_find = Event::find(3);
 
       $users = User::all();
       $user_find = User::find(1);
       $user_find_by_name = User::find_by_name("Pekka");
+      $list_events = $user_find->events_for_day('2017-03-23');
 
       $groups = Group::all();
 
