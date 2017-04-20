@@ -17,4 +17,10 @@
         Redirect::to('/login', array('message' => 'Kirjaudu ensin sisään!'));
       }
     }
+
+    public static function check_owner_id($id){
+      if(!$_SESSION['user'] == $id){
+        Redirect::to('/', array('message' => 'Oikeudet eivät riitä!'));
+      }
+    }
   }
