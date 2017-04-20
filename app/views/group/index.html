@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Ryhmät</h2>
+
+  <ul>
+    {% for group in groups %}
+      <li><a href="{{base_path}}/group/{{group.id}}">{{group.name}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
