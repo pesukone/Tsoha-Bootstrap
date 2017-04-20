@@ -9,14 +9,6 @@ Yleisiä linkkejä:
 
 PHP:llä toteutettu kalenterisovellus, joka käyttää PostgreSQL:ää
 
-## Toiminnallisuutta
-
-* [Päivänäkymä](http://jvaalto.users.cs.helsinki.fi/kalenteri/user/1/2017-03-23)
-
-## Näkymäluonnoksia
-
-* [Kalenterinäkymä](http://jvaalto.users.cs.helsinki.fi/kalenteri/suunnitelmat/calendar)
-
 ## Testitunnukset
 
 Käyttäjä: testi
