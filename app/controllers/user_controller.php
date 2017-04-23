@@ -31,11 +31,32 @@ class UserController extends BaseController{
   }
 
   public static function show($id){
-    $user = User::find($id);
-
     setlocale(LC_TIME, 'fi_FI');
 
-    View::make('user/show.html', array('user' => $user, 'monthtext' => strftime('%B'), 'days' => date('t'), 'year' => date('Y'), 'month' => date('m')));
+    $user = User::find($id);
+    $month = date('m');
+    $year = date('Y');
+    $text = strftime('%B');
+    $days = date('t');
+
+    View::make('user/show.html', array('user' => $user, 'monthtext' => $text, 'days' => $days, 'year' => $year, 'month' => $month));
+  }
+
+  public static function parse_time($id){
+    $time = $_POST['time'];
+    Redirect::to('/user/' . $id . '/' . $time);
+  }
+
+  public static function show_month($id, $time){
+    setlocale(LC_TIME, 'fi_FI');
+
+    $user = User::find($id);
+    $month = date('m', strtotime($time));
+    $year = date('Y', strtotime($time));
+    $text = strftime('%B', strtotime($time));
+    $days = date('t', strtotime($time));
+
+    View::make('user/show.html', array('user' => $user, 'monthtext' => $text, 'days' => $days, 'year' => $year, 'month' => $month));
   }
 
   public static function events_for_day($id, $date){

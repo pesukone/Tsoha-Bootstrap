@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
   <h3>{{monthtext}}</h3>
+
+  <form method="post" action="{{base_path}}/user/{{user_logged_in.id}}">
+    <div class="form-group">
+      <input name="time" class="form-control" type="month">
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Siirry</button>
+    </div>
+  </form>
+
   <table class="table table-bordered">
    <!-- <thead>
       <tr>
@@ -17,7 +28,7 @@
       <tr>
         {% for j in range(1,days) %}
           {% if user.events_for_day(j ~ "." ~ month ~ "." ~ year) != null %}
-            <td><a href="{{base_path}}/user/{{user.id}}/2017-04-{{ j }}">{{ j }}</a></td>
+          <td><a href="{{base_path}}/user/{{user.id}}/{{year}}-{{month}}-{{ j }}">{{ j }}</a></td>
           {% else %}
             <td>{{ j }}</td>
           {% endif %}

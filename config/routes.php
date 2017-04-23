@@ -36,6 +36,10 @@
     UserController::create();
   });
 
+  $routes->post('/user/:id', 'check_logged_in', function($id){
+    UserController::parse_time($id);
+  });
+
   $routes->post('/user', function(){
     UserController::store();
   });
@@ -56,8 +60,8 @@
     UserController::show($id);
   });
 
-  $routes->get('/user/:id/:date', 'check_logged_in', function($id, $date){
-    UserController::events_for_day($id, $date);
+  $routes->get('/user/:id/:time', 'check_logged_in', function($id, $time){
+    UserController::show_month($id, $time);
   });
 
   $routes->get('/group', 'check_logged_in', function(){
