@@ -63,6 +63,6 @@
     }
 
     public function validate_time_format($string){
-      return preg_match('/([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]/', $string);
+      return preg_match('/([01]?[0-9]|2[0-3]):[0-5][0-9]/', $string);
     }
   }

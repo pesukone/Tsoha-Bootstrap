@@ -60,6 +60,10 @@
     UserController::show($id);
   });
 
+  $routes->get('/user/:id/:year-:month-:day', function($id, $year, $month, $day){
+    UserController::events_for_day($id, $year . "-" . $month . "-" . $day);
+  });
+
   $routes->get('/user/:id/:time', 'check_logged_in', function($id, $time){
     UserController::show_month($id, $time);
   });
