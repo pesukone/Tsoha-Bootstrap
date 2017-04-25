@@ -22,5 +22,6 @@
   </ul>
 
   <!-- <a href="{{base_path}}/group/{{group.id}}/edit" class="btn btn-primary" role="button">Muokkaa</a> -->
-  {{forms.destroy_button("#{base_path}/group/#{group.id}/destroy")}}
+  {{forms.destroy_button("#{base_path}/group/#{group.id}/leave", "Lähde ryhmästä")}}
+  
 {% endblock %}

@@ -57,6 +57,16 @@
       $this->members[] = $user;
     }
 
+    public function remove_member($user){
+      $query = DB::connection()->prepare('DELETE FROM Membership WHERE registered_id = :user_id AND eventgroup_id = :group_id');
+      $query->execute(array(
+        'user_id' => $user->id,
+        'group_id' => $this->id
+      ));
+
+      $this->members = $this->get_members();
+    }
+
     public function get_members(){
       $query = DB::connection()->prepare('SELECT registered.id, registered.name, registered.password_digest FROM Eventgroup INNER JOIN Membership on eventgroup.id = membership.eventgroup_id INNER JOIN Registered on registered_id = registered.id WHERE eventgroup.id = :id');
       $query->execute(array(

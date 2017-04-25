@@ -92,6 +92,10 @@
     GroupController::add_member($id);
   });
 
+  $routes->post('/group/:id/leave', 'check_logged_in', function($id){
+    GroupController::remove_member($id);
+  });
+
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });

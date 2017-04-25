@@ -54,4 +54,13 @@
 
       Redirect::to('/group/' . $group->id, array('message' => 'Liitytty ryhmään'));
     }
+
+    public static function remove_member($id){
+      $group = Group::find($id);
+      $user = self::get_user_logged_in();
+
+      $group->remove_member($user);
+
+      Redirect::to('/group', array('message' => 'Lähdetty ryhmästä'));
+    }
   }
