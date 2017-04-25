@@ -6,7 +6,7 @@
 
     public function __construct($attributes){
       parent::__construct($attributes);
-      $this->members = array();
+      #$this->members = $this->get_members();
       $this->validators = array('validate_name');
     }
 
@@ -65,10 +65,14 @@
       ));
 
       $this->members = $this->get_members();
+
+      if(empty($this->members)){
+        $this->destroy();
+      }
     }
 
     public function get_members(){
-      $query = DB::connection()->prepare('SELECT registered.id, registered.name, registered.password_digest FROM Eventgroup INNER JOIN Membership on eventgroup.id = membership.eventgroup_id INNER JOIN Registered on registered_id = registered.id WHERE eventgroup.id = :id');
+      $query = DB::connection()->prepare('SELECT Registered.id, Registered.name, Registered.password_digest FROM Eventgroup INNER JOIN Membership on Eventgroup.id = Membership.eventgroup_id INNER JOIN Registered on registered_id = registered.id WHERE eventgroup.id = :id');
       $query->execute(array(
         'id' => $this->id
       ));

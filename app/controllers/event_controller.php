@@ -43,7 +43,7 @@
     public static function edit($id){
       $event = Event::find($id);
       $user = self::get_user_logged_in();
-      View::make('event/edit.html', array('attributes' => $event), 'groups' => $user->groups);
+      View::make('event/edit.html', array('attributes' => $event, 'groups' => $user->groups));
     }
 
     public static function update($id){
