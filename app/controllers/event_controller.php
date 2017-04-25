@@ -25,7 +25,7 @@
         'eventtime' => $params['time'],
         'description' => $params['description'],
         'user' => self::get_user_logged_in(),
-        'group' => null       // korvataan ryhmänlisäämisvaihtoehdolla lomakkeessa
+        'group' => $params['group']
       );
 
       $event = new Event($attributes);
@@ -42,7 +42,8 @@
 
     public static function edit($id){
       $event = Event::find($id);
-      View::make('event/edit.html', array('attributes' => $event));
+      $user = self::get_user_logged_in();
+      View::make('event/edit.html', array('attributes' => $event), 'groups' => $user->groups);
     }
 
     public static function update($id){
@@ -53,8 +54,8 @@
         'eventday' => $params['day'],
         'eventtime' => $params['time'],
         'description' => $params['description'],
-        //'user' => self::get_user_logged_in();
-        //'group' => $params['group']
+        'user' => self::get_user_logged_in(),
+        'group' => $params['group']
       );
 
       $event = new Event($attributes);

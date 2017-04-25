@@ -2,7 +2,7 @@
 
 class User extends BaseModel{
 
-  public $id, $name, $password_digest;
+  public $id, $name, $password_digest, $groups;
 
   public function __construct($attributes){
     parent::__construct($attributes);
@@ -14,6 +14,8 @@ class User extends BaseModel{
       // ei näin!
       $this->password_digest = crypt($attributes['password']);
     }
+
+    $this->groups = $this->find_groups();
   }
 
   public static function all(){
@@ -67,6 +69,19 @@ class User extends BaseModel{
     }
 
     return null;
+  }
+
+  public function find_groups(){
+    $query = DB::connection()->prepare('SELECT eventgroup_id FROM Registered INNER JOIN Membership ON id = registered_id WHERE id = :user_id');
+    $query->execute(array(':user_id' => $this->id));
+    $rows = $query->fetchAll();
+    $groups = array();
+
+    foreach($rows as $row){
+      $groups[] = Group::find($row['eventgroup_id']);
+    }
+
+    return $groups;
   }
 
   public function events_for_day($date){
