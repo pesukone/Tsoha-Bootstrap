@@ -88,6 +88,10 @@
     GroupController::destroy($id);
   });
 
+  $routes->post('/group/:id/join', 'check_logged_in', function($id){
+    GroupController::add_member($id);
+  });
+
   $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
   });

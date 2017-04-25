@@ -45,4 +45,13 @@
 
       Redirect::to('/', array('message' => 'Ryhmä tuhottu onnistuneesti!'));
     }
+
+    public static function add_member($id){
+      $group = Group::find($id);
+      $user = self::get_user_logged_in();
+
+      $group->add_member($user);
+
+      Redirect::to('/group/' . $group->id, array('message' => 'Liitytty ryhmään'));
+    }
   }

@@ -8,7 +8,12 @@
       {% for group in groups %}
         <tr>
           <td><a href="{{base_path}}/group/{{group.id}}">{{group.name}}</a></td>
-          <td class="btn-sm">{{forms.destroy_button("#{base_path}/group/#{group.id}/destroy")}}</td>
+          <td>
+            <form method="post" action="{{base_path}}/group/{{group.id}}/join">
+              <button type="submit" class="btn btn-primary">Liity</button>
+            </form>
+          </td>
+          <td>{{forms.destroy_button("#{base_path}/group/#{group.id}/destroy")}}</td>
         </tr>
       {% endfor %}
     </tbody>
