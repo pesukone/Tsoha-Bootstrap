@@ -33,28 +33,21 @@
     public static function show($id){
       setlocale(LC_TIME, 'fi_FI');
 
-      $user = User::find($id);
-      $month = date('m');
-      $year = date('Y');
-      $text = strftime('%B');
-      $days = date('t');
+      if(!empty($_POST)) {
+        $time = $_POST['time'];
+        $user = User::find($id);
 
-      View::make('user/show.html', array('user' => $user, 'monthtext' => $text, 'days' => $days, 'year' => $year, 'month' => $month));
-    }
-
-    public static function parse_time($id){
-      $time = $_POST['time'];
-      Redirect::to('/user/' . $id . '/' . $time);
-    }
-
-    public static function show_month($id, $time){
-      setlocale(LC_TIME, 'fi_FI');
-
-      $user = User::find($id);
-      $month = date('m', strtotime($time));
-      $year = date('Y', strtotime($time));
-      $text = strftime('%B', strtotime($time));
-      $days = date('t', strtotime($time));
+        $month = date('m', strtotime($time));
+        $year = date('Y', strtotime($time));
+        $text = strftime('%B', strtotime($time));
+        $days = date('t', strtotime($time));
+      }else{
+        $user = User::find($id);
+        $month = date('m');
+        $year = date('Y');
+        $text = strftime('%B');
+        $days = date('t');
+      }
 
       View::make('user/show.html', array('user' => $user, 'monthtext' => $text, 'days' => $days, 'year' => $year, 'month' => $month));
     }
