@@ -13,5 +13,5 @@
     </div>
   {% endif %}
 
-  {{forms.eventform("#{base_path}/event/#{attributes.id}", "Päivitä", attributes)}}
+  {{forms.eventform("#{base_path}/event/#{attributes.id}/edit", "Päivitä", attributes, groups)}}
 {% endblock %}

@@ -77,7 +77,6 @@
       $rows = $query->fetchAll();
       $groups = array();
 
-
       foreach($rows as $row){
         $group = new Group(array(
           'id' => $row['id'],

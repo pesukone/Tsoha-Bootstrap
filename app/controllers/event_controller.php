@@ -14,7 +14,8 @@
     }
 
     public static function create(){
-      View::make('event/new.html');
+      $user = self::get_user_logged_in();
+      View::make('event/new.html', array('groups' => $user->groups));
     }
 
     public static function store(){
@@ -43,7 +44,7 @@
     public static function edit($id){
       $event = Event::find($id);
       $user = self::get_user_logged_in();
-      View::make('event/edit.html', array('attributes' => $event, 'groups' => $user->groups));
+      View::make('event/edit.html', array('attributes' => $event, 'groups' => $user->find_groups()));
     }
 
     public static function update($id){
@@ -55,7 +56,7 @@
         'eventtime' => $params['time'],
         'description' => $params['description'],
         'user' => self::get_user_logged_in(),
-        'group' => $params['group']
+        'group' => !is_numeric($params['group']) ? null : Group::find($params['group'])
       );
 
       $event = new Event($attributes);
