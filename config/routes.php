@@ -61,7 +61,7 @@
   });
 
   $routes->get('/user/:id/:year-:month-:day', function($id, $year, $month, $day){
-    UserController::events_for_day($id, $year . "-" . $month . "-" . $day);
+    UserController::events_for_day($id, $day . "." . $month . "." . $year);
   });
 
   $routes->get('/group', 'check_logged_in', function(){

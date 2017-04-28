@@ -37,13 +37,13 @@
         $time = $_POST['time'];
         $user = User::find($id);
 
-        $month = date('m', strtotime($time));
+        $month = date('n', strtotime($time));
         $year = date('Y', strtotime($time));
         $text = strftime('%B', strtotime($time));
         $days = date('t', strtotime($time));
       }else{
         $user = User::find($id);
-        $month = date('m');
+        $month = date('n');
         $year = date('Y');
         $text = strftime('%B');
         $days = date('t');
