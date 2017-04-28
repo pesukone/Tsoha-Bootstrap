@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
 {% block content %}
   <h2>{{date}}</h2>
 
@@ -19,9 +20,10 @@
         <tr>
           <td>{{event.eventtime}}</td>
           <td>{{event.description}}</td>
-          <td>
+          <td align="right">
             {% if event.user == user_logged_in %}
               <a class="btn btn-default btn-sm" href="{{base_path}}/event/{{event.id}}/edit">Muokkaa</a>
+              {{forms.destroy_label("#{base_path}/event/#{event.id}/destroy")}}
             {% endif %}
           </td>
         </tr>

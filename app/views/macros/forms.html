@@ -4,6 +4,12 @@
   </form>
 {% endmacro %}
 
+{% macro destroy_label(action, text) %}
+  <form method="post" action="{{action}}" style="display: inline-block;">
+    <button type="submit" class="btn btn-danger btn-sm">{{text|default('Poista')}}</button>
+  </form>
+{% endmacro %}
+
 {% macro eventform(action, text, attributes, groups) %}
   <form method="post" action="{{action}}">
     <div class="form-group">
