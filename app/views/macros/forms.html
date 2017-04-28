@@ -23,10 +23,14 @@
 
     <div class="form-group">
       <label>Ryhmä</label>
-      <select name="group">
-        <option value="null" selected>Ei mikään</option>
+      <select name="group" class="form-control">
+        <option value="null">-</option>
         {% for group in groups %}
-          <option value={{group.id}}>{{group.name}}</option>
+          {% if group.id == attributes.group.id %}
+            <option value={{group.id}} selected>{{group.name}}</option>
+          {% else %}
+            <option value={{group.id}}>{{group.name}}</option>
+          {% endif %}
         {% endfor %}
       </select>
 
