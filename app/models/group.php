@@ -17,11 +17,15 @@
       $groups = array();
 
       foreach($rows as $row){
-        $groups[] = new Group(array(
+        $group = new Group(array(
 	        'id' => $row['id'],
 	        'name' => $row['name'],
 	        'description' => $row['description']
 	      ));
+
+        $group->members = $group->get_members();
+
+        $groups[] = $group;
       }
 
       return $groups;
