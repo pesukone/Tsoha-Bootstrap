@@ -28,4 +28,26 @@
         Redirect::to('/', array('message' => 'Oikeudet eivät riitä!'));
       }
     }
+
+    public static function check_group_membership($id){
+      $group = Group::find($id);
+      $user = self::get_user_logged_in();
+
+      if(is_null($group)){
+        Redirect::to('/', array('message' => 'Ryhmää ei ole olemassa!'));
+      }
+
+      $members = $group->members;
+      if(empty($members)){
+        Redirect::to('/', array('message' => 'Et ole ryhmän jäsen!'));
+      }
+
+      foreach($members as $member){
+        if($member->id == $user->id){
+          return;
+        }
+      }
+
+      Redirect::to('/', array('message' => 'Et ole ryhmän jäsen!'));
+    }
   }

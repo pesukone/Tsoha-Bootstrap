@@ -63,7 +63,7 @@
       $params = $_POST;
 
       $attributes = array(
-        'id' =>$id,
+        'id' => $id,
         'eventday' => $params['day'],
         'eventtime' => $params['time'],
         'description' => $params['description'],

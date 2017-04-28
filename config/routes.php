@@ -1,34 +1,30 @@
 <?php
 
-  function check_logged_in(){
-    BaseController::check_logged_in();
-  }
-
   $routes->get('/', function() {
     UserController::login();
   });
 
-  $routes->post('/event', 'check_logged_in', function(){
+  $routes->post('/event', function(){
     EventController::store();
   });
 
-  $routes->get('/event/new', 'check_logged_in', function(){
+  $routes->get('/event/new', function(){
     EventController::create();
   });
 
-  $routes->get('/event/:id', 'check_logged_in', function($id){
+  $routes->get('/event/:id', function($id){
     EventController::show($id);
   });
 
-  $routes->get('/event/:id/edit', 'check_logged_in', function($id){
+  $routes->get('/event/:id/edit', function($id){
     EventController::edit($id);
   });
 
-  $routes->post('/event/:id/edit', 'check_logged_in', function($id){
+  $routes->post('/event/:id/edit', function($id){
     EventController::update($id);
   });
 
-  $routes->post('/event/:id/destroy', 'check_logged_in', function($id){
+  $routes->post('/event/:id/destroy', function($id){
     EventController::destroy($id);
   });
 
@@ -36,7 +32,7 @@
     UserController::create();
   });
 
-  $routes->post('/user/:id', 'check_logged_in', function($id){
+  $routes->post('/user/:id', function($id){
     UserController::show($id);
   });
 
@@ -56,7 +52,7 @@
     UserController::logout();
   });
 
-  $routes->get('/user/:id', 'check_logged_in', function($id){
+  $routes->get('/user/:id', function($id){
     UserController::show($id);
   });
 
@@ -64,32 +60,40 @@
     UserController::events_for_day($id, $day . "." . $month . "." . $year);
   });
 
-  $routes->get('/group', 'check_logged_in', function(){
+  $routes->get('/group', function(){
     GroupController::index();
   });
 
-  $routes->post('/group', 'check_logged_in', function(){
+  $routes->post('/group', function(){
     GroupController::store();
   });
 
-  $routes->get('/group/new', 'check_logged_in', function(){
+  $routes->get('/group/new', function(){
     GroupController::create();
   });
 
-  $routes->get('/group/:id', 'check_logged_in', function($id){
+  $routes->get('/group/:id/edit', function($id){
+    GroupController::edit($id);
+  });
+
+  $routes->get('/group/:id', function($id){
     GroupController::show($id);
   });
 
-  $routes->post('/group/:id/destroy', 'check_logged_in', function($id){
+  $routes->post('/group/:id/destroy', function($id){
     GroupController::destroy($id);
   });
 
-  $routes->post('/group/:id/join', 'check_logged_in', function($id){
+  $routes->post('/group/:id/join', function($id){
     GroupController::add_member($id);
   });
 
-  $routes->post('/group/:id/leave', 'check_logged_in', function($id){
+  $routes->post('/group/:id/leave', function($id){
     GroupController::remove_member($id);
+  });
+
+  $routes->post('/group/:id/edit', function($id){
+    GroupController::update($id);
   });
 
   $routes->get('/hiekkalaatikko', function() {

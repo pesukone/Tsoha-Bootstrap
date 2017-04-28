@@ -107,6 +107,15 @@
       $this->id = $row['id'];
     }
 
+    public function update(){
+      $query = DB::connection()->prepare('UPDATE Eventgroup SET name = :name, description = :description WHERE id = :id');
+      $query->execute(array(
+        'name' => $this->name,
+        'description' => $this->description,
+        'id' => $this->id
+      ));
+    }
+
     public function destroy(){
       $query = DB::connection()->prepare('DELETE FROM Eventgroup WHERE id = :id');
       $query->execute(array(

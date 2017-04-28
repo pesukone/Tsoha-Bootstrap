@@ -15,13 +15,13 @@
 
   <h4>Jäsenet</h4>
 
-  <ul>
+  <ul class="list-group">
     {% for member in group.members %}
-      <li><a href="{{base_path}}/user/{{member.id}}">{{member.name}}</a></li>
+      <li class="list-group-item">{{member.name}}</li>
     {% endfor %}
   </ul>
 
   <!-- <a href="{{base_path}}/group/{{group.id}}/edit" class="btn btn-primary" role="button">Muokkaa</a> -->
+  <a href="{{base_path}}/group/{{group.id}}/edit" class="btn btn-default" role="button">Muokkaa</a>
   {{forms.destroy_button("#{base_path}/group/#{group.id}/leave", "Lähde ryhmästä")}}
-  
 {% endblock %}

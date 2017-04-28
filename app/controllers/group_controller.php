@@ -39,6 +39,36 @@
       View::make('group/show.html', array('group' => $group));
     }
 
+    public static function edit($id){
+      self::check_group_membership($id);
+      $group = Group::find($id);
+
+      View::make('group/edit.html', array('attributes' => $group));
+    }
+
+    public static function update($id){
+      self::check_group_membership($id);
+
+      $params = $_POST;
+
+      $attributes = array(
+        'id' => $id,
+        'name' => $params['name'],
+        'description' => $params['description']
+      );
+
+      $group = new Group($attributes);
+      $errors = $group->errors();
+
+      if(count($errors) > 0){
+        View::make('group/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+      }else{
+        $group->update();
+
+        Redirect::to('/group/' . $group->id, array('message' => 'Ryhmää muokattu onnistuneesti!'));
+      }
+    }
+
     public static function destroy($id){
       $group = new Group(array('id' => $id));
       $group->destroy();

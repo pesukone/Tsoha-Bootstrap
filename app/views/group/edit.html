@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% import "macros/forms.html" as forms %}
 {% block content %}
-  <h2>Uusi ryhmä</h2>
+  <h2>Muokkaa ryhmää</h2>
 
   {% if errors %}
     {{forms.errortext(errors)}}
   {% endif %}
 
-  {{forms.groupform("#{base_path}/group", "Luo ryhmä", attributes)}}
+  {{forms.groupform("#{base_path}/group/#{attributes.id}/edit", "Päivitä", attributes)}}
 {% endblock %}
