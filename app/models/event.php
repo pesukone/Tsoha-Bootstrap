@@ -7,6 +7,7 @@
     public function __construct($attributes){
       parent::__construct($attributes);
       $this->validators = array('validate_description', 'validate_date', 'validate_time');
+      $this->eventtime = date('H:i', strtotime($this->eventtime));
     }
 
     public static function all(){
@@ -17,12 +18,12 @@
 
       foreach($rows as $row){
         $events[] = new Event(array(
-        'id' => $row['id'],
-        'eventday' => $row['eventday'],
-        'eventtime' => $row['eventtime'],
-        'description' => $row['description'],
-        'user' => User::find($row['registered_id']),
-        'group' => Group::find($row['eventgroup_id'])
+          'id' => $row['id'],
+          'eventday' => $row['eventday'],
+          'eventtime' => $row['eventtime'],
+          'description' => $row['description'],
+          'user' => User::find($row['registered_id']),
+          'group' => Group::find($row['eventgroup_id'])
         ));
       }
 
