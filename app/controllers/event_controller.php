@@ -26,7 +26,7 @@
         'eventtime' => $params['time'],
         'description' => $params['description'],
         'user' => self::get_user_logged_in(),
-        'group' => $params['group']
+        'group' => !is_numeric($params['group']) ? null : Group::find($params['group'])
       );
 
       $event = new Event($attributes);

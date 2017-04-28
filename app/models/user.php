@@ -91,7 +91,7 @@
     }
 
     public function events_for_day($date){
-      $query = DB::connection()->prepare('SELECT Event.id, Event.eventday, Event.eventtime, Event.description, Event.registered_id, Event.eventgroup_id from Membership INNER JOIN Eventgroup ON Membership.eventgroup_id = Eventgroup.id RIGHT JOIN Event ON Eventgroup.id = Event.eventgroup_id WHERE Event.eventday = :date AND (Event.registered_id = :user_id OR Membership.registered_id = :user_id) AND NOT (Event.registered_id = :user_id AND Membership.registered_id = :user_id)');
+      $query = DB::connection()->prepare('SELECT Event.id, Event.eventday, Event.eventtime, Event.description, Event.registered_id, Event.eventgroup_id FROM Membership INNER JOIN Eventgroup ON Membership.eventgroup_id = Eventgroup.id RIGHT JOIN Event ON Eventgroup.id = Event.eventgroup_id WHERE Event.eventday = :date AND (Membership.registered_id = :user_id or (Membership.registered_id IS NULL AND Event.registered_id = :user_id))');
       $query->execute(array(':user_id' => $this->id, ':date' => $date));
       $rows = $query->fetchAll();
       $events = array();
