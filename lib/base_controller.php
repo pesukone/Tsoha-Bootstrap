@@ -18,8 +18,13 @@
       }
     }
 
-    public static function check_owner_id($id){
-      if(!$_SESSION['user'] == $id){
+    public static function check_event_owner($id){
+      $event = Event::find($id);
+      if(is_null($event)){
+        Redirect::to('/', array('message' => 'Merkintää ei ole olemassa!'));
+      }
+
+      if($event->user->id != $_SESSION['user']){
         Redirect::to('/', array('message' => 'Oikeudet eivät riitä!'));
       }
     }

@@ -2,23 +2,31 @@
 
   class EventController extends BaseController{
     public static function index(){
+      self::check_logged_in();
+
       $events = Event::all();
       
       View::make('event/index.html', array('events' => $events));
     }
 
     public static function show($id){
+      self::check_event_owner($id);
+
       $event = Event::find($id);
 
       View::make('event/show.html', array('event' => $event));
     }
 
     public static function create(){
+      self::check_logged_in();
+
       $user = self::get_user_logged_in();
       View::make('event/new.html', array('groups' => $user->groups));
     }
 
     public static function store(){
+      self::check_logged_in();
+
       $params = $_POST;
 
       $attributes = array(
@@ -42,12 +50,16 @@
     }
 
     public static function edit($id){
+      self::check_event_owner($id);
+
       $event = Event::find($id);
       $user = self::get_user_logged_in();
       View::make('event/edit.html', array('attributes' => $event, 'groups' => $user->find_groups()));
     }
 
     public static function update($id){
+      self::check_event_owner($id);
+
       $params = $_POST;
 
       $attributes = array(
@@ -72,6 +84,8 @@
     }
 
     public static function destroy($id){
+      self::check_event_owner($id);
+
       $event = new Event(array('id' => $id));
       $event->destroy();
 
