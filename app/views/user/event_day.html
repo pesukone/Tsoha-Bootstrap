@@ -19,7 +19,11 @@
         <tr>
           <td>{{event.eventtime}}</td>
           <td>{{event.description}}</td>
-          <td><a class="btn btn-default btn-sm" href="{{base_path}}/event/{{event.id}}/edit">Muokkaa</a></td>
+          <td>
+            {% if event.user == user_logged_in %}
+              <a class="btn btn-default btn-sm" href="{{base_path}}/event/{{event.id}}/edit">Muokkaa</a>
+            {% endif %}
+          </td>
         </tr>
       {% endfor %}
     </tbody>
