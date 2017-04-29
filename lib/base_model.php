@@ -24,6 +24,27 @@
       return $errors;
     }
 
+    protected static function single_row_query($querytext, $parameters){
+      $query = DB::connection()->prepare($querytext);
+      $query->execute($parameters);
+      $row = $query->fetch();
+
+      return $row;
+    }
+
+    protected static function multi_row_query($querytext, $parameters){
+      $query = DB::connection()->prepare($querytext);
+      $query->execute($parameters);
+      $rows = $query->fetchAll();
+
+      return $rows;
+    }
+
+    protected static function update_query($querytext, $parameters){
+      $query = DB::connection()->prepare($querytext);
+      $query->execute($parameters);
+    }
+
     public function validate_string_max_length($string, $length){
       if(strlen($string) > $length){
         return false;

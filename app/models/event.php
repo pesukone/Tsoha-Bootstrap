@@ -11,77 +11,76 @@
     }
 
     public static function all(){
-      $query = DB::connection()->prepare('SELECT * FROM Event');
-      $query->execute();
-      $rows = $query->fetchAll();
+      $querytext = 'SELECT * FROM Event';
+      $parameters = array();
+      $rows = parent::multi_row_query($querytext, $parameters);
+
       $events = array();
 
       foreach($rows as $row){
-        $events[] = new Event(array(
-          'id' => $row['id'],
-          'eventday' => $row['eventday'],
-          'eventtime' => $row['eventtime'],
-          'description' => $row['description'],
-          'user' => User::find($row['registered_id']),
-          'group' => Group::find($row['eventgroup_id'])
-        ));
+        $events[] = self::parse_event_from_query($row);
       }
 
       return $events;
     }
 
     public static function find($id){
-      $query = DB::connection()->prepare('SELECT * FROM Event WHERE id = :id LIMIT 1');
-      $query->execute(array(':id' => $id));
-      $row = $query->fetch();
+      $query = 'SELECT * FROM Event WHERE id = :id LIMIT 1';
+      $parameters = array(':id' => $id);
+      $row = parent::single_row_query($query, $parameters);
 
       if($row){
-        $event = new Event(array(
-          'id' => $row['id'],
-          'eventday' => $row['eventday'],
-          'eventtime' => $row['eventtime'],
-          'description' => $row['description'],
-          'user' => User::find($row['registered_id']),
-          'group' => Group::find($row['eventgroup_id'])
-        ));
-
-        return $event;
+        return self::parse_event_from_query($row);
       }
 
       return null;
     }
 
     public function save(){
-      $query = DB::connection()->prepare('INSERT INTO Event (eventday, eventtime, description, registered_id, eventgroup_id) VALUES (:day, :time, :description, :user_id, :group_id) RETURNING id');
-      $query->execute(array(
+      $query = 'INSERT INTO Event (eventday, eventtime, description, registered_id, eventgroup_id) VALUES (:day, :time, :description, :user_id, :group_id) RETURNING id';
+      $parameters = array(
         'day' => $this->eventday, 
         'time' => $this->eventtime, 
         'description' => $this->description, 
         'user_id' => is_null($this->user) ? null : $this->user->id,
         'group_id' => is_null($this->group) ? null : $this->group->id
-      ));
+      );
 
-      $row = $query->fetch();
+      $row = parent::single_row_query($querytext, $parameters);
 
       $this->id = $row['id'];
     }
 
     public function update(){
-      $query = DB::connection()->prepare('UPDATE Event SET eventday = :day, eventtime = :time, description = :description, eventgroup_id = :group_id WHERE id = :id');
-      $query->execute(array(
+      $query = 'UPDATE Event SET eventday = :day, eventtime = :time, description = :description, eventgroup_id = :group_id WHERE id = :id';
+      $parameters = array(
         'day' => $this->eventday,
         'time' => $this->eventtime,
         'description' => $this->description,
         'group_id' => is_null($this->group) ? null : $this->group->id,
         'id' => $this->id
-      ));
+      );
+
+      parent::update_query($query, $parameters);
     }
 
     public function destroy(){
-      $query = DB::connection()->prepare('DELETE FROM Event WHERE id = :id');
-      $query->execute(array(
-        'id' => $this->id
+      $query = 'DELETE FROM Event WHERE id = :id';
+      $parameters = array('id' => $this->id);
+      parent::update_query($query, $parameters);
+    }
+
+    private static function parse_event_from_query($row){
+      $event = new Event(array(
+        'id' => $row['id'],
+        'eventday' => $row['eventday'],
+        'eventtime' => $row['eventtime'],
+        'description' => $row['description'],
+        'user' => User::find($row['registered_id']),
+        'group' => Group::find($row['eventgroup_id'])
       ));
+
+      return $event;
     }
 
     public function validate_description(){
