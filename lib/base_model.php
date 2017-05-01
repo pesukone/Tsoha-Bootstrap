@@ -45,6 +45,41 @@
       $query->execute($parameters);
     }
 
+    protected static function parse_event_from_query($row){
+      $event = new Event(array(
+        'id' => $row['id'],
+        'eventday' => $row['eventday'],
+        'eventtime' => $row['eventtime'],
+        'description' => $row['description'],
+        'user' => User::find($row['registered_id']),
+        'group' => Group::find($row['eventgroup_id'])
+      ));
+
+      return $event;
+    }
+
+    protected static function parse_group_from_query($row){
+      $group = new Group(array(
+        'id' => $row['id'],
+        'name' => $row['name'],
+        'description' => $row['description']
+      ));
+
+      $group->members = $group->get_members();
+
+      return $group;
+    }
+
+    protected static function parse_user_from_query($row){
+      $user = new User(array(
+        'id' => $row['id'],
+        'name' => $row['name'],
+        'password_digest' => $row['password_digest']
+      ));
+
+      return $user;
+    }
+
     public function validate_string_max_length($string, $length){
       if(strlen($string) > $length){
         return false;

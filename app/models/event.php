@@ -11,14 +11,14 @@
     }
 
     public static function all(){
-      $querytext = 'SELECT * FROM Event';
+      $query = 'SELECT * FROM Event';
       $parameters = array();
-      $rows = parent::multi_row_query($querytext, $parameters);
+      $rows = parent::multi_row_query($query, $parameters);
 
       $events = array();
 
       foreach($rows as $row){
-        $events[] = self::parse_event_from_query($row);
+        $events[] = parent::parse_event_from_query($row);
       }
 
       return $events;
@@ -30,7 +30,7 @@
       $row = parent::single_row_query($query, $parameters);
 
       if($row){
-        return self::parse_event_from_query($row);
+        return parent::parse_event_from_query($row);
       }
 
       return null;
@@ -68,19 +68,6 @@
       $query = 'DELETE FROM Event WHERE id = :id';
       $parameters = array('id' => $this->id);
       parent::update_query($query, $parameters);
-    }
-
-    private static function parse_event_from_query($row){
-      $event = new Event(array(
-        'id' => $row['id'],
-        'eventday' => $row['eventday'],
-        'eventtime' => $row['eventtime'],
-        'description' => $row['description'],
-        'user' => User::find($row['registered_id']),
-        'group' => Group::find($row['eventgroup_id'])
-      ));
-
-      return $event;
     }
 
     public function validate_description(){

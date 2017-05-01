@@ -6,67 +6,51 @@
 
     public function __construct($attributes){
       parent::__construct($attributes);
-      #$this->members = $this->get_members();
       $this->validators = array('validate_name');
     }
 
     public static function all(){
-      $query = DB::connection()->prepare('SELECT * FROM Eventgroup');
-      $query->execute();
-      $rows = $query->fetchAll();
+      $query = 'SELECT * FROM Eventgroup';
+      $rows = parent::multi_row_query($query, array());
       $groups = array();
 
       foreach($rows as $row){
-        $group = new Group(array(
-	        'id' => $row['id'],
-	        'name' => $row['name'],
-	        'description' => $row['description']
-	      ));
-
-        $group->members = $group->get_members();
-
-        $groups[] = $group;
+        $groups[] = parent::parse_group_from_query($row);
       }
 
       return $groups;
     }
 
     public static function find($id){
-      $query = DB::connection()->prepare('SELECT * FROM Eventgroup WHERE id = :id LIMIT 1');
-      $query->execute(array(':id' => $id));
-      $row = $query->fetch();
+      $query = 'SELECT * FROM Eventgroup WHERE id = :id LIMIT 1';
+      $parameters = array(':id' => $id);
+      $row = parent::single_row_query($query, $parameters);
 
       if($row){
-        $group = new Group(array(
-          'id' => $row['id'],
-	        'name' => $row['name'],
-	        'description' => $row['description']
-	      ));
-
-        $group->members = $group->get_members();
-
-	      return $group;
+        return parent::parse_group_from_query($row);
       }
 
       return null;
     }
 
     public function add_member($user){
-      $query = DB::connection()->prepare('INSERT INTO Membership (registered_id, eventgroup_id) VALUES (:user_id, :group_id)');
-      $query->execute(array(
+      $query = 'INSERT INTO Membership (registered_id, eventgroup_id) VALUES (:user_id, :group_id)';
+      $parameters = array(
         'user_id' => $user->id,
         'group_id' => $this->id
-      ));
+      );
+      parent::update_query($query, $parameters);
 
       $this->members[] = $user;
     }
 
     public function remove_member($user){
-      $query = DB::connection()->prepare('DELETE FROM Membership WHERE registered_id = :user_id AND eventgroup_id = :group_id');
-      $query->execute(array(
+      $query = 'DELETE FROM Membership WHERE registered_id = :user_id AND eventgroup_id = :group_id';
+      $parameters = array(array(
         'user_id' => $user->id,
         'group_id' => $this->id
       ));
+      parent::update_query($query, $parameters);
 
       $this->members = $this->get_members();
 
@@ -76,51 +60,43 @@
     }
 
     public function get_members(){
-      $query = DB::connection()->prepare('SELECT Registered.id, Registered.name, Registered.password_digest FROM Eventgroup INNER JOIN Membership on Eventgroup.id = Membership.eventgroup_id INNER JOIN Registered on registered_id = registered.id WHERE eventgroup.id = :id');
-      $query->execute(array(
-        'id' => $this->id
-      ));
-
-      $rows = $query->fetchAll();
+      $query = 'SELECT Registered.id, Registered.name, Registered.password_digest FROM Eventgroup INNER JOIN Membership on Eventgroup.id = Membership.eventgroup_id INNER JOIN Registered on registered_id = registered.id WHERE eventgroup.id = :id';
+      $parameters = array('id' => $this->id);
+      $rows = parent::multi_row_query($query, $parameters);
       $members = array();
 
       foreach($rows as $row){
-        $members[] = new User(array(
-          'id' => $row['id'],
-          'name' => $row['name'],
-          'password_digest' => $row['password_digest']
-        ));
+        $members[] = parent::parse_user_from_query($row);
       }
 
       return $members;
     }
 
     public function save(){
-      $query = DB::connection()->prepare('INSERT INTO Eventgroup (name, description) VALUES (:name, :description) RETURNING id');
-      $query->execute(array(
+      $query = 'INSERT INTO Eventgroup (name, description) VALUES (:name, :description) RETURNING id';
+      $parameters = array(
         'name' => $this->name,
         'description' => $this->description
-      ));
-
-      $row = $query->fetch();
+      );
+      $row = parent::single_row_query($query, $parameters);
 
       $this->id = $row['id'];
     }
 
     public function update(){
-      $query = DB::connection()->prepare('UPDATE Eventgroup SET name = :name, description = :description WHERE id = :id');
-      $query->execute(array(
+      $query = 'UPDATE Eventgroup SET name = :name, description = :description WHERE id = :id';
+      $parameters = array(
         'name' => $this->name,
         'description' => $this->description,
         'id' => $this->id
-      ));
+      );
+      parent::update_query($query, $parameters);
     }
 
     public function destroy(){
-      $query = DB::connection()->prepare('DELETE FROM Eventgroup WHERE id = :id');
-      $query->execute(array(
-        'id' => $this->id
-      ));
+      $query = 'DELETE FROM Eventgroup WHERE id = :id';
+      $parameters = array('id' => $this->id);
+      parent::update_query($query, $parameters);
     }
 
     public function validate_name(){
