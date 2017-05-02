@@ -48,6 +48,10 @@
         }
       }
 
+      public static function check_user_id($id){
+        return self::get_user_logged_in()->id == $id;
+      }
+
       Redirect::to('/', array('message' => 'Et ole ryhmän jäsen!'));
     }
   }

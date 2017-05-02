@@ -2,16 +2,22 @@
 
   class GroupController extends BaseController{
     public static function index(){
+      parent::check_logged_in();
+
       $groups = Group::all();
 
       View::make('group/index.html', array('groups' => $groups));
     }
 
     public static function create(){
+      parent::check_logged_in();
+
       View::make('group/new.html');
     }
 
     public static function store(){
+      parent::check_logged_in();
+
       $group = self::parse_post_attributes($_POST);
       $errors = $group->errors();
 
@@ -26,20 +32,22 @@
     }
 
     public static function show($id){
+      parent::check_logged_in();
+
       $group = Group::find($id);
 
       View::make('group/show.html', array('group' => $group));
     }
 
     public static function edit($id){
-      self::check_group_membership($id);
+      parent::check_group_membership($id);
       $group = Group::find($id);
 
       View::make('group/edit.html', array('attributes' => $group));
     }
 
     public static function update($id){
-      self::check_group_membership($id);
+      parent::check_group_membership($id);
 
       $group = self::parse_post_attributes($_POST);
       $errors = $group->errors();
@@ -54,6 +62,8 @@
     }
 
     public static function destroy($id){
+      parent::check_group_membership();
+
       $group = new Group(array('id' => $id));
       $group->destroy();
 
@@ -61,6 +71,8 @@
     }
 
     public static function add_member($id){
+      parent::check_logged_in();
+
       $group = Group::find($id);
       $user = self::get_user_logged_in();
 
@@ -70,8 +82,10 @@
     }
 
     public static function remove_member($id){
+      parent::check_logged_in();
+
       $group = Group::find($id);
-      $user = self::get_user_logged_in();
+      $user = parent::get_user_logged_in();
 
       $group->remove_member($user);
 

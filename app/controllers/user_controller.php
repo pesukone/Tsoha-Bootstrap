@@ -1,11 +1,11 @@
 <?php
 
   class UserController extends BaseController{
-    public static function index(){
+    /*public static function index(){
       $users = User::all();
 
       View::make('user/index.html', array('users' => $users));
-    }
+    }*/
 
 
     public static function login(){
@@ -32,6 +32,8 @@
     }
 
     public static function show($id){
+      parent::check_user_id($id);
+
       setlocale(LC_TIME, 'fi_FI');
 
       if(!empty($_POST)) {
@@ -54,6 +56,8 @@
     }
 
     public static function events_for_day($id, $date){
+      parent::check_user_id($id);
+
       $user = User::find($id);
       $events = $user->events_for_day($date);
 
