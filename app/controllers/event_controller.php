@@ -10,7 +10,7 @@
     }
 
     public static function show($id){
-      self::check_event_owner($id);
+      parent::check_event_owner($id);
 
       $event = Event::find($id);
 
@@ -18,26 +18,28 @@
     }
 
     public static function create(){
-      self::check_logged_in();
+      parent::check_logged_in();
 
-      $user = self::get_user_logged_in();
+      $user = parent::get_user_logged_in();
       View::make('event/new.html', array('groups' => $user->groups));
     }
 
     public static function store(){
-      self::check_logged_in();
+      parent::check_logged_in();
 
       $params = $_POST;
 
-      $attributes = array(
+      /*$attributes = array(
         'eventday' => $params['day'],
         'eventtime' => $params['time'],
         'description' => $params['description'],
         'user' => self::get_user_logged_in(),
-        'group' => !is_numeric($params['group']) ? null : Group::find($params['group'])
+        'group' => is_numeric($params['group']) ? Group::find($params['group']) : null
       );
 
-      $event = new Event($attributes);
+      $event = new Event($attributes);*/
+
+      $event = self::parse_post_attributes($params);
       $errors = $event->errors();
 
       if(count($errors) == 0){
@@ -62,16 +64,20 @@
 
       $params = $_POST;
 
-      $attributes = array(
+      /*$attributes = array(
         'id' => $id,
         'eventday' => $params['day'],
         'eventtime' => $params['time'],
         'description' => $params['description'],
         'user' => self::get_user_logged_in(),
-        'group' => !is_numeric($params['group']) ? null : Group::find($params['group'])
-      );
+        'group' => is_numeric($params['group']) ? Group::find($params['group']) : null
+      );*/
 
-      $event = new Event($attributes);
+      $attributes = self::parse_post_attributes;
+
+      //$event = new Event($attributes);
+      
+      $event = self::parse_post_attributes($params);
       $errors = $event->errors();
 
       if(count($errors) > 0){
@@ -90,5 +96,18 @@
       $event->destroy();
 
       Redirect::to('/', array('message' => 'Tapahtuma tuhottu onnistuneesti!'));
+    }
+
+    private static function parse_post_attributes($params){
+      $attributes = array(
+        'id' => $id,
+        'eventday' => $params['day'],
+        'eventtime' => $params['time'],
+        'description' => $params['description'],
+        'user' => self::get_user_logged_in(),
+        'group' => is_numeric($params['group']) ? Group::find($params['group']) : null
+      );
+
+      return new Event($attributes);
     }
   }
