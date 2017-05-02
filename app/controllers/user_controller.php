@@ -67,14 +67,7 @@
     }
 
     public static function store(){
-      $params = $_POST;
-
-      $attributes = array(
-        'name' => $params['name'],
-        'password' => $params['password']
-      );
-
-      $user = new User($attributes);
+      $user = self::parse_post_attributes($_POST);
       $errors = $user->errors();
 
       if(count($errors) == 0){
@@ -84,6 +77,15 @@
       }else{
         View::make('user/new.html', array('errors' => $errors, 'attributes' => $attributes));
       }
+    }
+
+    private static function parse_post_attributes($params){
+      $attributes = array(
+        'name' => $params['name'],
+        'password' => $params['password']
+      );
+
+      return new User($attributes);
     }
   }
 
