@@ -1,7 +1,7 @@
 <?php
 
   $routes->get('/', function() {
-    UserController::login();
+    UserController::get_root();
   });
 
   $routes->post('/event', function(){

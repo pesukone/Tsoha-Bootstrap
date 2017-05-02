@@ -1,12 +1,13 @@
 <?php
 
   class UserController extends BaseController{
-    /*public static function index(){
-      $users = User::all();
-
-      View::make('user/index.html', array('users' => $users));
-    }*/
-
+    public static function get_root(){
+      if(parent::check_logged_in()){
+        self::show(parent::get_logged_in()->id);
+      }else{
+        self::login();
+      }
+    }
 
     public static function login(){
       View::make('user/login.html');
