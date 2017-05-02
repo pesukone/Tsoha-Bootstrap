@@ -12,7 +12,7 @@
     }
 
     public static function store(){
-      $params = $_POST;
+      /*$params = $_POST;
       $user = self::get_user_logged_in();
 
       $attributes = array(
@@ -20,7 +20,9 @@
         'description' => $params['description'],
       );
 
-      $group = new Group($attributes);
+      $group = new Group($attributes);*/
+
+      $group = self::parse_post_attributes($_POST);
       $errors = $group->errors();
 
       if(count($errors) == 0){
@@ -49,7 +51,7 @@
     public static function update($id){
       self::check_group_membership($id);
 
-      $params = $_POST;
+      /*$params = $_POST;
 
       $attributes = array(
         'id' => $id,
@@ -57,7 +59,9 @@
         'description' => $params['description']
       );
 
-      $group = new Group($attributes);
+      $group = new Group($attributes);*/
+
+      $group = self::parse_post_attributes($_POST);
       $errors = $group->errors();
 
       if(count($errors) > 0){
@@ -92,5 +96,14 @@
       $group->remove_member($user);
 
       Redirect::to('/group', array('message' => 'Lähdetty ryhmästä'));
+    }
+
+    private static function parse_post_attributes($params){
+      $attributes = array(
+        'name' => $params['name'],
+        'description' => $params['description'],
+      );
+
+      return new Group($attributes);
     }
   }

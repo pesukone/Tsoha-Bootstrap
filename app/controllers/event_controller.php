@@ -62,7 +62,7 @@
     public static function update($id){
       self::check_event_owner($id);
 
-      $params = $_POST;
+      //$params = $_POST;
 
       /*$attributes = array(
         'id' => $id,
@@ -73,11 +73,11 @@
         'group' => is_numeric($params['group']) ? Group::find($params['group']) : null
       );*/
 
-      $attributes = self::parse_post_attributes;
+      //$attributes = self::parse_post_attributes;
 
       //$event = new Event($attributes);
       
-      $event = self::parse_post_attributes($params);
+      $event = self::parse_post_attributes($_POST);
       $errors = $event->errors();
 
       if(count($errors) > 0){
