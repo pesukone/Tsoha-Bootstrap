@@ -11,6 +11,8 @@
       if(array_key_exists('password_digest', $attributes)){
         $this->password_digest = $attributes['password_digest'];
       }else{
+        self::validate_password($attributes['password']);
+
         // ei näin!
         $this->password_digest = crypt($attributes['password']);
       }
@@ -123,7 +125,16 @@
       if(!parent::validate_string_min_length($this->name, 3)){
         $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
       }
+      if(!is_null(User::find_by_name($this->name))){
+        $errors[] = 'Käyttäjänimi on varattu!';
+      }
 
       return $errors;
+    }
+
+    public function validate_password($password){
+      if(!parent::validate_string_min_length($password, 8)){
+        Redirect::to('/user/new', array('username' => $this->name, 'errors' => array('Salasanan on oltava vähintään 8 merkkiä pitkä!')));
+      }
     }
   }

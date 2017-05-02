@@ -78,7 +78,7 @@
 
         Redirect::to('/user/' . $user->id, array('message' => 'Käyttäjätunnus luotu'));
       }else{
-        View::make('user/new.html', array('errors' => $errors, 'attributes' => $attributes));
+        View::make('user/new.html', array('errors' => $errors, 'attributes' => $_POST));
       }
     }
 
