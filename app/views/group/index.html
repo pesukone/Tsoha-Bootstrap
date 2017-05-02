@@ -2,9 +2,7 @@
 {% import "macros/forms.html" as forms %}
 {% block content %}
   {% if message %}
-    <div class="alert alert-success">
-      {{message}}
-    </div>
+    {{forms.messagetext(message)}}
   {% endif %}
 
   <h2>Ryhmät</h2>

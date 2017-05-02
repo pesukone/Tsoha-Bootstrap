@@ -20,6 +20,12 @@
   </div>
 {% endmacro %}
 
+{% macro messagetext(message) %}
+  <div class="alert alert-danger">
+    {{message}}
+  </div>
+{% endmacro %}
+
 {% macro eventform(action, text, attributes, groups) %}
   <form method="post" action="{{action}}">
     <div class="form-group">

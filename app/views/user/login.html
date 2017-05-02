@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
 {% block content %}
   {% if error %}
     <div class="alert alert-danger">
@@ -7,9 +8,7 @@
   {% endif %}
 
   {% if message %}
-    <div class="alert alert-danger">
-      {{message}}
-    </div>
+    {{forms.messagetext(message)}}
   {% endif %}
 
   <h2>Kirjaudu sisään</h2>
