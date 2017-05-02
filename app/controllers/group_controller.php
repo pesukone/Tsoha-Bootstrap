@@ -12,16 +12,6 @@
     }
 
     public static function store(){
-      /*$params = $_POST;
-      $user = self::get_user_logged_in();
-
-      $attributes = array(
-        'name' => $params['name'],
-        'description' => $params['description'],
-      );
-
-      $group = new Group($attributes);*/
-
       $group = self::parse_post_attributes($_POST);
       $errors = $group->errors();
 
@@ -50,16 +40,6 @@
 
     public static function update($id){
       self::check_group_membership($id);
-
-      /*$params = $_POST;
-
-      $attributes = array(
-        'id' => $id,
-        'name' => $params['name'],
-        'description' => $params['description']
-      );
-
-      $group = new Group($attributes);*/
 
       $group = self::parse_post_attributes($_POST);
       $errors = $group->errors();

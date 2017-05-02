@@ -27,19 +27,7 @@
     public static function store(){
       parent::check_logged_in();
 
-      $params = $_POST;
-
-      /*$attributes = array(
-        'eventday' => $params['day'],
-        'eventtime' => $params['time'],
-        'description' => $params['description'],
-        'user' => self::get_user_logged_in(),
-        'group' => is_numeric($params['group']) ? Group::find($params['group']) : null
-      );
-
-      $event = new Event($attributes);*/
-
-      $event = self::parse_post_attributes($params);
+      $event = self::parse_post_attributes($_POST);
       $errors = $event->errors();
 
       if(count($errors) == 0){
@@ -62,21 +50,6 @@
     public static function update($id){
       self::check_event_owner($id);
 
-      //$params = $_POST;
-
-      /*$attributes = array(
-        'id' => $id,
-        'eventday' => $params['day'],
-        'eventtime' => $params['time'],
-        'description' => $params['description'],
-        'user' => self::get_user_logged_in(),
-        'group' => is_numeric($params['group']) ? Group::find($params['group']) : null
-      );*/
-
-      //$attributes = self::parse_post_attributes;
-
-      //$event = new Event($attributes);
-      
       $event = self::parse_post_attributes($_POST);
       $errors = $event->errors();
 

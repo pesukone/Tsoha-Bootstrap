@@ -2,12 +2,6 @@
 
   class HelloWorldController extends BaseController{
 
-    public static function index() {
-      // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
-      //View::make('home.html');
-      echo 'Tänne tulee kirjautumissivu sitten joskus';
-    }
-
     public static function sandbox() {
       $events = Event::all();
       $event_find = Event::find(3);
@@ -35,21 +29,5 @@
       Kint::dump($event_find->errors());
       Kint::dump($group);
       Kint::dump($members);
-    }
-
-    public static function calendar_show() {
-      View::make('suunnitelmat/calendar_show.html');
-    }
-
-    public static function event_new() {
-      View::make('suunnitelmat/event_new.html');
-    }
-
-    public static function event_show() {
-      View::make('suunnitelmat/event_show.html');
-    }
-
-    public static function registered_new() {
-      View::make('suunnitelmat/registration_new.html');
     }
   }
