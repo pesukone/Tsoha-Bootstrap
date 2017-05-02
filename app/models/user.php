@@ -73,7 +73,7 @@
     }
 
     public function events_for_day($date){
-      $query = 'SELECT Event.id, Event.eventday, Event.eventtime, Event.description, Event.registered_id, Event.eventgroup_id FROM Membership INNER JOIN Eventgroup ON Membership.eventgroup_id = Eventgroup.id RIGHT JOIN Event ON Eventgroup.id = Event.eventgroup_id WHERE Event.eventday = :date AND (Membership.registered_id = :user_id or (Membership.registered_id IS NULL AND Event.registered_id = :user_id))';
+      $query = 'SELECT Event.id, Event.eventday, Event.eventtime, Event.description, Event.registered_id, Event.eventgroup_id FROM Membership INNER JOIN Eventgroup ON Membership.eventgroup_id = Eventgroup.id RIGHT JOIN Event ON Eventgroup.id = Event.eventgroup_id WHERE Event.eventday = :date AND (Membership.registered_id = :user_id or (Membership.registered_id IS NULL AND Event.registered_id = :user_id)) ORDER BY Event.eventtime';
       $parameters = array(
         ':user_id' => $this->id,
         ':date' => $date

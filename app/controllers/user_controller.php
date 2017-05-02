@@ -62,8 +62,6 @@
       $user = User::find($id);
       $events = $user->events_for_day($date);
 
-      usort($events, 'cmp_time');
-
       View::make('user/event_day.html', array('user' => $user, 'events' => $events, 'date' => $date));
     }
 
@@ -92,11 +90,4 @@
 
       return new User($attributes);
     }
-  }
-
-  function cmp_time($a, $b){
-    if($a->eventtime == $b->eventtime){
-      return 0;
-    }
-    return ($a->eventtime < $b->eventtime) ? -1 : 1;
   }
