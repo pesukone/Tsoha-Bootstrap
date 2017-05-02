@@ -7,19 +7,5 @@
     {{forms.errortext(errors)}}
   {% endif %}
 
-  <form method="post" action="{{base_path}}/user">
-    <div class="form-group">
-      <label>Käyttäjänimi</label>
-      <input name="name" class="form-control" type="text">
-    </div>
-
-    <div class="form-group">
-      <label>Salasana</label>
-      <input name="password" class="form-control" type="password">
-    </div>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Luo käyttäjä</button>
-    </div>
-  </form>
+  {{forms.userform("#{base_path}/user", "Luo käyttäjä", username)}}
 {% endblock %}
