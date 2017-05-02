@@ -2,8 +2,8 @@
 
   class UserController extends BaseController{
     public static function get_root(){
-      if(parent::check_logged_in()){
-        self::show(parent::get_logged_in()->id);
+      if(parent::get_user_logged_in()){
+        self::show(parent::get_user_logged_in()->id);
       }else{
         self::login();
       }

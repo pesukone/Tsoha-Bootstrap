@@ -33,11 +33,7 @@
             <span class="icon-bar"></span>
           </button>
           <!-- Sovelluksen nimi -->
-          {% if user_logged_in %}
-            <a class="navbar-brand" href="{{base_path}}/user/{{user_logged_in.id}}">Kalenteri</a>
-          {% else %}
-            <a class="navbar-brand" href="{{base_path}}">Kalenteri</a>
-          {% endif %}
+          <a class="navbar-brand" href="{{base_path}}/">Kalenteri</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navigation">
