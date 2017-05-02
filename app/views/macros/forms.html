@@ -4,7 +4,6 @@
   </form>
 {% endmacro %}
 
-<<<<<<< Updated upstream
 {% macro destroy_label(action, text) %}
   <form method="post" action="{{action}}" style="display: inline-block;">
     <button type="submit" class="btn btn-danger btn-sm">{{text|default('Poista')}}</button>
@@ -21,8 +20,6 @@
   </div>
 {% endmacro %}
 
-=======
->>>>>>> Stashed changes
 {% macro eventform(action, text, attributes, groups) %}
   <form method="post" action="{{action}}">
     <div class="form-group">
@@ -42,7 +39,6 @@
 
     <div class="form-group">
       <label>Ryhmä</label>
-<<<<<<< Updated upstream
       <select name="group" class="form-control">
         <option value="null">-</option>
         {% for group in groups %}
@@ -51,12 +47,6 @@
           {% else %}
             <option value={{group.id}}>{{group.name}}</option>
           {% endif %}
-=======
-      <select name="group">
-        <option value="null" selected>Ei mikään</option>
-        {% for group in groups %}
-          <option value={{group.id}}>{{group.name}}</option>
->>>>>>> Stashed changes
         {% endfor %}
       </select>
 

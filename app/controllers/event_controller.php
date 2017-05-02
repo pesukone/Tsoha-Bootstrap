@@ -18,14 +18,10 @@
     }
 
     public static function create(){
-<<<<<<< Updated upstream
       self::check_logged_in();
 
       $user = self::get_user_logged_in();
       View::make('event/new.html', array('groups' => $user->groups));
-=======
-      View::make('event/new.html', array('groups' => self::get_user_logged_in()->groups);
->>>>>>> Stashed changes
     }
 
     public static function store(){
