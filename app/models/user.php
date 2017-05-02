@@ -19,62 +19,44 @@
     }
 
     public static function all(){
-      $query = DB::connection()->prepare('SELECT * FROM Registered');
-      $query->execute();
-      $rows = $query->fetchAll();
-      $users = array();
+      $query = 'SELECT * FROM Registered';
+      $rows = parent::multi_row_query($query, array());
 
       foreach($rows as $row){
-        $users[] = new Registered(array(
-       	  'id' => $row['id'],
-      	  'name' => $row['name'],
-          'password_digest' => $row['name']
-        ));
+        $users[] = parent::parse_user_from_query($row);
       }
 
       return $users;
     }
 
     public static function find($id){
-      $query = DB::connection()->prepare('SELECT * FROM Registered WHERE id = :id LIMIT 1');
-      $query->execute(array(':id' => $id));
-      $row = $query->fetch();
+      $query = 'SELECT * FROM Registered WHERE id = :id LIMIT 1';
+      $parameters = array(':id' => $id);
+      $row = parent::single_row_query($query, $parameters);
 
       if($row){
-        $user = new User(array(
-      	  'id' => $row['id'],
-      	  'name' => $row['name'],
-          'password_digest' => $row['password_digest']
-        ));
-
-        return $user;
+        return parent::parse_user_from_query($row);
       }
 
       return null;
     }
 
     public static function find_by_name($name){
-      $query = DB::connection()->prepare('SELECT * FROM Registered WHERE name = :name');
-      $query->execute(array(':name' => $name));
-      $row = $query->fetch();
+      $query = 'SELECT * FROM Registered WHERE name = :name';
+      $parameters = array(':name' => $name);
+      $row = parent::single_row_query($query, $parameters);
 
       if($row){
-        $user = new User(array(
-          'id' => $row['id'],
-          'name' => $row['name'],
-          'password_digest' => $row['password_digest']
-        ));
-
-        return $user;
+        return parent::parse_user_from_query($row);
       }
 
       return null;
     }
 
     public function find_groups(){
-      $query = DB::connection()->prepare('SELECT Eventgroup.id, Eventgroup.name, Eventgroup.description FROM Registered INNER JOIN Membership ON id = registered_id INNER JOIN Eventgroup ON Eventgroup.id = eventgroup_id WHERE Registered.id = :user_id');
-      $query->execute(array(':user_id' => $this->id));
-      $rows = $query->fetchAll();
+      $query = 'SELECT Eventgroup.id, Eventgroup.name, Eventgroup.description FROM Registered INNER JOIN Membership ON id = registered_id INNER JOIN Eventgroup ON Eventgroup.id = eventgroup_id WHERE Registered.id = :user_id';
+      $parameters = array(':user_id' => $this->id);
+      $rows = parent::multi_row_query($query, $parameters);
       $groups = array();
 
       foreach($rows as $row){
@@ -91,33 +73,28 @@
     }
 
     public function events_for_day($date){
-      $query = DB::connection()->prepare('SELECT Event.id, Event.eventday, Event.eventtime, Event.description, Event.registered_id, Event.eventgroup_id FROM Membership INNER JOIN Eventgroup ON Membership.eventgroup_id = Eventgroup.id RIGHT JOIN Event ON Eventgroup.id = Event.eventgroup_id WHERE Event.eventday = :date AND (Membership.registered_id = :user_id or (Membership.registered_id IS NULL AND Event.registered_id = :user_id))');
-      $query->execute(array(':user_id' => $this->id, ':date' => $date));
-      $rows = $query->fetchAll();
+      $query = 'SELECT Event.id, Event.eventday, Event.eventtime, Event.description, Event.registered_id, Event.eventgroup_id FROM Membership INNER JOIN Eventgroup ON Membership.eventgroup_id = Eventgroup.id RIGHT JOIN Event ON Eventgroup.id = Event.eventgroup_id WHERE Event.eventday = :date AND (Membership.registered_id = :user_id or (Membership.registered_id IS NULL AND Event.registered_id = :user_id))';
+      $parameters = array(
+        ':user_id' => $this->id,
+        ':date' => $date
+      );
+      $rows = parent::multi_row_query($query, $parameters);
       $events = array();
 
       foreach($rows as $row){
-        $events[] = new Event(array(
-          'id' => $row['id'],
-          'eventday' => $row['eventday'],
-          'eventtime' => $row['eventtime'],
-          'description' => $row['description'],
-          'user' => User::find($row['registered_id']),
-          'group' => Group::find($row['eventgroup_id'])
-        ));
+        $events[] = parent::parse_event_from_query($row);
       }
 
       return $events;
     }
 
     public function save(){
-      $query = DB::connection()->prepare('INSERT INTO Registered (name, password_digest) VALUES (:name, :digest) RETURNING id');
-      $query->execute(array(
+      $query = 'INSERT INTO Registered (name, password_digest) VALUES (:name, :digest) RETURNING id';
+      $parameters = array(
         'name' => $this->name,
         'digest' => $this->password_digest
-      ));
-
-      $row = $query->fetch();
+      );
+      $row = parent::single_row_query($query, $parameters);
 
       $this->id = $row['id'];
     }

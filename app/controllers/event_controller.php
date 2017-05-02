@@ -2,7 +2,7 @@
 
   class EventController extends BaseController{
     public static function index(){
-      self::check_logged_in();
+      parent::check_logged_in();
 
       $events = Event::all();
       
