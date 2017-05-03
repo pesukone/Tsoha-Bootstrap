@@ -56,7 +56,7 @@
       $errors = $event->errors();
 
       if(count($errors) > 0){
-        View::make('event/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+        View::make('event/edit.html', array('errors' => $errors, 'attributes' => $event));
       }else{
         $event->update();
 

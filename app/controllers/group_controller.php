@@ -55,7 +55,7 @@
       $errors = $group->errors();
 
       if(count($errors) > 0){
-        View::make('group/edit.html', array('errors' => $errors, 'attributes' => $_POST));
+        View::make('group/edit.html', array('errors' => $errors, 'attributes' => $group));
       }else{
         $group->update();
 
