@@ -51,6 +51,7 @@
       self::check_event_owner($id);
 
       $event = self::parse_post_attributes($_POST);
+      $event->id = $id;
       $errors = $event->errors();
 
       if(count($errors) > 0){
@@ -58,7 +59,7 @@
       }else{
         $event->update();
 
-        Redirect::to('/event/' . $event->id, array('message' => 'Tapahtumaa muokattu onnistuneesti!'));
+        Redirect::to('/event/' . $event->id, array('message' => 'Merkintää muokattu onnistuneesti!'));
       }
     }
 
@@ -68,12 +69,12 @@
       $event = new Event(array('id' => $id));
       $event->destroy();
 
-      Redirect::to('/', array('message' => 'Tapahtuma tuhottu onnistuneesti!'));
+      Redirect::to('/', array('message' => 'Merkintä tuhottu onnistuneesti!'));
     }
 
     private static function parse_post_attributes($params){
       $attributes = array(
-        'id' => $id,
+        //'id' => $id,
         'eventday' => $params['day'],
         'eventtime' => $params['time'],
         'description' => $params['description'],

@@ -46,7 +46,7 @@
         'group_id' => is_null($this->group) ? null : $this->group->id
       );
 
-      $row = parent::single_row_query($querytext, $parameters);
+      $row = parent::single_row_query($query, $parameters);
 
       $this->id = $row['id'];
     }
