@@ -34,7 +34,7 @@
       if(count($errors) == 0){
         $event->save();
 
-        Redirect::to('/event/' . $event->id, array('message' => 'Merkintä luotu'));
+        Redirect::to('/user/' . parent::get_user_logged_in()->id . '/' . $event->eventday, array('message' => 'Merkintä luotu'));
       }else{
         View::make('event/new.html', array('errors' => $errors, 'attributes' => $_POST, 'groups' => parent::get_user_logged_in()->groups));
       }
@@ -60,7 +60,7 @@
       }else{
         $event->update();
 
-        Redirect::to('/event/' . $event->id, array('message' => 'Merkintää muokattu onnistuneesti!'));
+        Redirect::to('/user/' . parent::get_user_logged_in()->id . '/' . $event->eventday, array('message' => 'Merkintää muokattu onnistuneesti!'));
       }
     }
 
