@@ -6,7 +6,7 @@
 
     public function __construct($attributes){
       parent::__construct($attributes);
-      $this->validators = array('validate_description', 'validate_date', 'validate_time');
+      $this->validators = array('validate_description', 'validate_date', 'validate_time', 'validate_user');
       $this->eventtime = date('H:i', strtotime($this->eventtime));
     }
 
