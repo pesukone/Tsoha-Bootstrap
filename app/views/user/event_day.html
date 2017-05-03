@@ -12,6 +12,7 @@
       <tr>
         <th>Kellonaika</th>
         <th>Kuvaus</th>
+        <th>Ryhmä</td>
         <th></th>
       </tr>
     </thead>
@@ -20,6 +21,11 @@
         <tr>
           <td>{{event.eventtime}}</td>
           <td>{{event.description}}</td>
+          <td>
+            {% if event.group is not null %}
+              <a href="{{base_path}}/group/{{event.group.id}}">{{event.group.name}}</a>
+            {% endif %}
+          </td>
           <td align="right">
             {% if event.user == user_logged_in %}
               <a class="btn btn-default btn-sm" href="{{base_path}}/event/{{event.id}}/edit">Muokkaa</a>

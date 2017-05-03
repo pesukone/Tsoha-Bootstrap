@@ -1,22 +1,22 @@
 <?php
 
   class EventController extends BaseController{
-    public static function index(){
+    /*public static function index(){
       parent::check_logged_in();
 
       $events = Event::all();
       
       View::make('event/index.html', array('events' => $events));
-    }
+    }*/
 
-    public static function show($id){
+    /*public static function show($id){
       parent::check_event_owner($id);
       setlocale(LC_TIME, 'fi_FI');
 
       $event = Event::find($id);
 
       View::make('event/show.html', array('event' => $event));
-    }
+    }*/
 
     public static function create(){
       parent::check_logged_in();
