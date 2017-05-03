@@ -12,12 +12,7 @@
       {% for group in groups %}
         <tr>
           <td><a href="{{base_path}}/group/{{group.id}}">{{group.name}}</a></td>
-          {% set ids = [] %}
-          {% for member in group.members %}
-            {% set ids = ids|merge([member.id]) %}
-          {% endfor %}
-
-          {% if user_logged_in.id not in ids %}
+          {% if not user_logged_in.in_group(group) %}
             <td>
               <form method="post" action="{{base_path}}/group/{{group.id}}/join">
                 <button type="submit" class="btn btn-primary btn-sm">Liity</button>
