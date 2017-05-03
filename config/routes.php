@@ -12,10 +12,6 @@
     EventController::create();
   });
 
-  $routes->get('/event/:id', function($id){
-    EventController::show($id);
-  });
-
   $routes->get('/event/:id/edit', function($id){
     EventController::edit($id);
   });
