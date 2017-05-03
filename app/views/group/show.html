@@ -23,5 +23,9 @@
   {% if user_logged_in.in_group(group) %}
     <a href="{{base_path}}/group/{{group.id}}/edit" class="btn btn-default" role="button">Muokkaa</a>
     {{forms.destroy_button("#{base_path}/group/#{group.id}/leave", "Lähde ryhmästä")}}
+  {% else %}
+    <form method="post" action="{{base_path}}/group/{{group.id}}/join">
+      <button type="submit" class="btn btn-primary">Liity</button>
+    </form>
   {% endif %}
 {% endblock %}
