@@ -122,7 +122,7 @@
         $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
       }
 
-      if(!parent::validate_string_max_length($this->name, 3)){
+      if(!parent::validate_string_max_length($this->name, 50)){
         $errors[] = 'Nimen pituus ei saa olla yli 50 merkkiä!';
       }
 
