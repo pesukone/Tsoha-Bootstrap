@@ -18,6 +18,7 @@
     public static function store(){
       parent::check_logged_in();
 
+      $user = parent::get_user_logged_in();
       $group = self::parse_post_attributes($_POST);
       $errors = $group->errors();
 
@@ -27,7 +28,7 @@
 
         Redirect::to('/group/' . $group->id, array('message' => 'Ryhmä luotu'));
       }else{
-        View::make('group/new.html', array('errors' => $errors, 'attributes' => $attributes));
+        View::make('group/new.html', array('errors' => $errors, 'attributes' => $_POST));
       }
     }
 

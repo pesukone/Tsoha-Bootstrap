@@ -33,6 +33,18 @@
       return null;
     }
 
+    public static function find_by_name($name){
+      $query = 'SELECT * FROM Eventgroup WHERE name = :name';
+      $parameters = array(':name' => $name);
+      $row = parent::single_row_query($query, $parameters);
+
+      if($row){
+        return parent::parse_group_from_query($row);
+      }
+
+      return null;
+    }
+
     public function add_member($user){
       $query = 'INSERT INTO Membership (registered_id, eventgroup_id) VALUES (:user_id, :group_id)';
       $parameters = array(
@@ -46,10 +58,10 @@
 
     public function remove_member($user){
       $query = 'DELETE FROM Membership WHERE registered_id = :user_id AND eventgroup_id = :group_id';
-      $parameters = array(array(
+      $parameters = array(
         'user_id' => $user->id,
         'group_id' => $this->id
-      ));
+      );
       parent::update_query($query, $parameters);
 
       $this->members = $this->get_members();
@@ -108,6 +120,10 @@
 
       if(!parent::validate_string_min_length($this->name, 3)){
         $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
+      }
+
+      if(!is_null(Group::find_by_name($this->name))){
+        $errors[] = 'Ryhmä on jo olemassa!';
       }
 
       return $errors;

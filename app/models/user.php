@@ -122,9 +122,11 @@
       if(!parent::validate_not_null($this->name)){
         $errors[] = 'Nimi ei saa olla tyhjä!';
       }
+
       if(!parent::validate_string_min_length($this->name, 3)){
         $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
       }
+
       if(!is_null(User::find_by_name($this->name))){
         $errors[] = 'Käyttäjänimi on varattu!';
       }
