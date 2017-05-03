@@ -77,6 +77,8 @@
         'password_digest' => $row['password_digest']
       ));
 
+      $user->groups = $user->find_groups();
+
       return $user;
     }
 

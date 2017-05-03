@@ -55,6 +55,15 @@
       return null;
     }
 
+    public function in_group($group){
+      $ids = array();
+      foreach($group->members as $member){
+        $ids[] = $member->id;
+      }
+
+      return in_array($this->id, $ids);
+    }
+
     public function find_groups(){
       $query = 'SELECT Eventgroup.id, Eventgroup.name, Eventgroup.description FROM Registered INNER JOIN Membership ON id = registered_id INNER JOIN Eventgroup ON Eventgroup.id = eventgroup_id WHERE Registered.id = :user_id';
       $parameters = array(':user_id' => $this->id);
