@@ -10,7 +10,7 @@
     }
 
     public static function all(){
-      $query = 'SELECT * FROM Eventgroup';
+      $query = 'SELECT * FROM Eventgroup ORDER BY name';
       $rows = parent::multi_row_query($query, array());
       $groups = array();
 
