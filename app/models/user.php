@@ -110,7 +110,7 @@
       $this->id = $row['id'];
     }
 
-    public function authenticate($name, $password){
+    public static function authenticate($name, $password){
       $user = User::find_by_name($name);
 
       if($user == null){
