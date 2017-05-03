@@ -11,6 +11,7 @@
 
     public static function show($id){
       parent::check_event_owner($id);
+      setlocale(LC_TIME, 'fi_FI');
 
       $event = Event::find($id);
 
@@ -35,7 +36,7 @@
 
         Redirect::to('/event/' . $event->id, array('message' => 'Merkintä luotu'));
       }else{
-        View::make('event/new.html', array('errors' => $errors, 'attributes' => $attributes));
+        View::make('event/new.html', array('errors' => $errors, 'attributes' => $_POST, 'groups' => parent::get_user_logged_in()->groups));
       }
     }
 

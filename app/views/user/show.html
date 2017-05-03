@@ -1,5 +1,14 @@
 {% extends "base.html" %}
+{% import "macros/forms.html" as forms %}
 {% block content %}
+  {% if errors %}
+    {{forms.errortext(errors)}}
+  {% endif %}
+
+  {% if message %}
+    {{forms.messagetext(message)}}
+  {% endif %}
+
   <h3>{{monthtext}}</h3>
 
   <form method="post" action="{{base_path}}/user/{{user_logged_in.id}}">
@@ -17,7 +26,7 @@
       <tr>
         {% for j in range(1,days) %}
           {% if user.events_for_day(j ~ "." ~ month ~ "." ~ year) != null %}
-          <td><a href="{{base_path}}/user/{{user.id}}/{{year}}-{{month}}-{{ j }}">{{ j }}</a></td>
+            <td><a href="{{base_path}}/user/{{user.id}}/{{year}}-{{month}}-{{ j }}">{{ j }}</a></td>
           {% else %}
             <td>{{ j }}</td>
           {% endif %}

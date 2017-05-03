@@ -88,6 +88,7 @@
 
       if(!parent::validate_not_null($this->eventday)){
         $errors[] = 'Päivämäärä ei saa olla tyhjä!';
+        return $errors;
       }
       if(!parent::validate_date_format($this->eventday)){
         $errors[] = 'Virheellinen päivämäärä!';
