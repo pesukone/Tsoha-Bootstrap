@@ -6,7 +6,7 @@
 
     public function __construct($attributes){
       parent::__construct($attributes);
-      $this->validators = array('validate_name');
+      $this->validators = array('validate_name', 'validate_description');
     }
 
     public static function all(){
@@ -122,9 +122,9 @@
         $errors[] = 'Nimen pituuden tulee olla vähintään kolme merkkiä!';
       }
 
-      if(!is_null(Group::find_by_name($this->name))){
+      /*if(!is_null(Group::find_by_name($this->name))){
         $errors[] = 'Ryhmä on jo olemassa!';
-      }
+      }*/
 
       return $errors;
     }

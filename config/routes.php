@@ -64,10 +64,6 @@
     GroupController::index();
   });
 
-  $routes->post('/group', function(){
-    GroupController::store();
-  });
-
   $routes->get('/group/new', function(){
     GroupController::create();
   });
@@ -94,6 +90,10 @@
 
   $routes->post('/group/:id/edit', function($id){
     GroupController::update($id);
+  });
+
+  $routes->post('/group', function(){
+    GroupController::store();
   });
 
   $routes->get('/hiekkalaatikko', function() {

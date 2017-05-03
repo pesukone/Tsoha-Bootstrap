@@ -51,10 +51,11 @@
       parent::check_group_membership($id);
 
       $group = self::parse_post_attributes($_POST);
+      $group->id = $id;
       $errors = $group->errors();
 
       if(count($errors) > 0){
-        View::make('group/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+        View::make('group/edit.html', array('errors' => $errors, 'attributes' => $_POST));
       }else{
         $group->update();
 
