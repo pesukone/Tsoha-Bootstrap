@@ -25,7 +25,7 @@
       }
 
       if($event->user->id != $_SESSION['user']){
-        Redirect::to('/', array('message' => 'Oikeudet eivät riitä!'));
+        Redirect::to('/', array('errors' => array('Oikeudet eivät riitä!')));
       }
     }
 
@@ -53,7 +53,7 @@
 
     public static function check_user_id($id){
       if(self::get_user_logged_in()->id != $id){
-        Redirect::to('/', array('message' => 'Oikeudet eivät riitä!'));
+        Redirect::to('/', array('errors' => array('Oikeudet eivät riitä!')));
       }
     }
   }

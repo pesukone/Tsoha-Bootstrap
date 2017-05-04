@@ -116,6 +116,7 @@
 
       if(!parent::validate_not_null($this->name)){
         $errors[] = 'Nimi ei saa olla tyhjä!';
+        return $errors;
       }
 
       if(!parent::validate_string_min_length($this->name, 3)){
