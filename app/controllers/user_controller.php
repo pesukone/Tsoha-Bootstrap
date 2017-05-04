@@ -75,6 +75,7 @@
 
       if(count($errors) == 0){
         $user->save();
+        $_SESSION['user'] = $user->id;
 
         Redirect::to('/user/' . $user->id, array('message' => 'Käyttäjätunnus luotu'));
       }else{
